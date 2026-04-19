@@ -41,14 +41,14 @@ export default function GallerySection() {
     >
       <div className="section-container w-full max-w-[1920px] mx-auto">
         <motion.div
-          className="section-header text-center mb-8 flex flex-col items-center"
+          className="section-header text-center mb-6 flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl lg:text-5xl mb-4">Life at the Lab</h2>
-          <p className="text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed text-neutral-400">
+          <h2 className="text-2xl lg:text-4xl mb-3 font-bold tracking-tight">Life at the Lab</h2>
+          <p className="text-base max-w-3xl mx-auto leading-relaxed text-neutral-400">
             A glimpse into our collaborative ecosystem, experiments, and team milestones.
           </p>
         </motion.div>
@@ -58,7 +58,7 @@ export default function GallerySection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="w-full relative px-0 flex-1 flex flex-col justify-center min-h-[65vh]"
+          className="w-full relative px-0 flex-1 flex flex-col justify-center min-h-[85vh]"
         >
           {mounted && (
             <Swiper
@@ -68,10 +68,10 @@ export default function GallerySection() {
               slidesPerView={'auto'}
               initialSlide={2}
               coverflowEffect={{
-                rotate: 0, // flat
-                stretch: 100, // pull them closer
-                depth: 250, // 3D depth
-                modifier: 1.5,
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
                 slideShadows: true,
               }}
               autoplay={{
@@ -84,17 +84,17 @@ export default function GallerySection() {
               }}
               navigation={true}
               modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
-              className="mySwiper w-full h-full pb-16"
+              className="mySwiper w-full h-full pb-12"
             >
               {galleryImages.map((src, index) => (
-                <SwiperSlide 
-                  key={index} 
-                  className="w-[85vw] md:w-[70vw] lg:w-[60vw]"
+                <SwiperSlide
+                  key={index}
+                  className="w-[95vw] md:w-[85vw] lg:w-[75vw] xl:w-[70vw]"
                 >
-                  <div className="w-full h-[60vh] flex items-center justify-center rounded-xl overflow-hidden relative">
-                    <img 
-                      src={src} 
-                      alt={`Gallery view ${index + 1}`} 
+                  <div className="w-full h-[100vh] flex items-center justify-center rounded-2xl overflow-hidden relative bg-black/20">
+                    <img
+                      src={src}
+                      alt={`Gallery view ${index + 1}`}
                       className="w-full h-full object-contain"
                       loading={index < 3 ? "eager" : "lazy"}
                     />

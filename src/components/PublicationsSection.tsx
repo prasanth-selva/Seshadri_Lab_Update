@@ -46,7 +46,7 @@ export default function PublicationsSection() {
         background: "var(--bg-secondary)",
         position: "relative",
       }}
-      className="min-h-[100vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden"
+      className="min-h-[85vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden"
     >
       <div
         style={{
@@ -62,14 +62,14 @@ export default function PublicationsSection() {
 
       <div className="section-container w-full max-w-[1600px] mx-auto px-6 lg:px-12">
         <motion.div
-          className="section-header text-center mb-16 flex flex-col items-center"
+          className="section-header text-center mb-12 flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl lg:text-5xl mb-6">Featured Publications</h2>
-          <p className="text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed text-center">
+          <h2 className="text-2xl lg:text-4xl mb-4 font-bold tracking-tight">Featured Publications</h2>
+          <p className="text-base text-neutral-400 max-w-3xl mx-auto leading-relaxed text-center">
             Our work is published in leading journals, advancing the
             scientific understanding of wearable bioelectronics and digital
             health.
@@ -113,23 +113,23 @@ export default function PublicationsSection() {
               </div>
 
               {/* Content */}
-              <div className="p-6 lg:p-8 flex-1 flex flex-col">
+              <div className="p-6 flex-1 flex flex-col">
                 {/* Journal Badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--accent-gold-dim)] rounded-full text-xs font-bold text-[var(--accent-gold)] mb-4 w-fit uppercase tracking-wider">
-                  <BookOpen size={14} />
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--accent-gold-dim)] rounded-full text-[10px] font-bold text-[var(--accent-gold)] mb-3 w-fit uppercase tracking-wider">
+                  <BookOpen size={12} />
                   {pub.journal} · {pub.year}
                 </div>
 
-                <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-3 color-[var(--text-primary)]">
+                <h3 className="text-lg font-bold leading-snug mb-2 color-[var(--text-primary)]">
                   {pub.title}
                 </h3>
 
-                <p className="text-base lg:text-lg leading-relaxed color-[var(--text-secondary)] flex-1">
+                <p className="text-sm leading-relaxed text-neutral-400 flex-1">
                   {pub.description}
                 </p>
 
-                <div className="mt-6 flex items-center gap-2 text-[var(--accent-gold)] text-base font-bold uppercase tracking-wide group hover:translate-x-2 transition-transform">
-                  Read Publication <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
+                <div className="mt-4 flex items-center gap-2 text-[var(--accent-gold)] text-sm font-bold uppercase tracking-wide group hover:translate-x-2 transition-transform">
+                  Read Publication <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </motion.div>

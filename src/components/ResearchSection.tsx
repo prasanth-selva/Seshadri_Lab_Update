@@ -87,14 +87,14 @@ export default function ResearchSection() {
 
       <div className="section-container w-full max-w-[1600px] mx-auto px-6 lg:px-12">
         <motion.div
-          className="section-header text-center mb-16 flex flex-col items-center"
+          className="section-header text-center mb-12 flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl lg:text-5xl mb-6">Research Areas</h2>
-          <p className="text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed text-center">
+          <h2 className="text-2xl lg:text-4xl mb-4 font-bold tracking-tight">Research Areas</h2>
+          <p className="text-base text-neutral-400 max-w-3xl mx-auto leading-relaxed text-center">
             Our interdisciplinary team explores the convergence of materials
             science, electrical engineering, and biomedical innovation to push
             the boundaries of digital health.
@@ -157,11 +157,11 @@ export default function ResearchSection() {
               </div>
 
               {/* Content */}
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl lg:text-2xl font-bold mb-3 color-[var(--text-primary)]">
+              <div className="p-5 flex-1 flex flex-col">
+                <h3 className="text-lg font-bold mb-2 color-[var(--text-primary)] tracking-tight">
                   {area.title}
                 </h3>
-                <p className="text-base lg:text-lg leading-relaxed color-[var(--text-secondary)]">
+                <p className="text-sm leading-relaxed color-[var(--text-secondary)] text-neutral-400">
                   {area.description}
                 </p>
               </div>
