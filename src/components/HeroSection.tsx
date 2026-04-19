@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { SplineScene } from "@/components/ui/splite";
+import { Card } from "@/components/ui/card";
+import { Spotlight } from "@/components/ui/spotlight";
 
 export default function HeroSection() {
   return (
@@ -10,176 +13,122 @@ export default function HeroSection() {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
-        minHeight: "600px",
+        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        overflow: "hidden",
+        padding: "0",
       }}
     >
-      {/* Background Image */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            'url("https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/5710fd00-78c1-4222-831e-203e15ebf885/1000_F_581475242_QCUzHXIq7kg3bw8GJSheX22SqLM4yxaY.jpg")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          filter: "brightness(0.35)",
-          transform: "scale(1.05)",
-        }}
-      />
-
-      {/* Gradient Overlays */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(180deg, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.3) 40%, rgba(8,8,8,0.6) 80%, rgba(8,8,8,1) 100%)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%)",
-        }}
-      />
-
-      {/* Content */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          textAlign: "center",
-          padding: "0 1.5rem",
-          maxWidth: "900px",
-        }}
-      >
-        {/* Lab Logo */}
-        <motion.img
-          src="https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/df927f55-54c4-4437-b477-4c874ef9932d/Main+Logo.png?format=750w"
-          alt="Seshadri Lab"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            width: "min(320px, 70vw)",
-            height: "auto",
-            margin: "0 auto 2.5rem",
-            display: "block",
-          }}
+      <Card className="w-full min-h-[100vh] bg-black/[0.96] relative overflow-hidden flex flex-col border-none rounded-none m-0 p-0">
+        <Spotlight
+          className="-top-40 left-0 md:left-60 md:-top-20"
+          fill="rgba(201, 168, 76, 0.4)" // Adjusted slightly for Gold theme
         />
 
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          style={{
-            fontSize: "clamp(0.875rem, 1.5vw, 1.1rem)",
-            fontWeight: 500,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--accent-gold)",
-            marginBottom: "1.5rem",
-          }}
-        >
-          Lehigh University
-        </motion.p>
+        <div className="flex h-full flex-col lg:flex-row flex-1 pt-24 lg:pt-0">
+          {/* Left content */}
+          <div className="flex-1 p-8 md:p-16 relative z-10 flex flex-col justify-center max-w-2xl mx-auto lg:mx-0 w-full lg:w-auto h-full text-center lg:text-left">
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight mb-6"
+            >
+              Interactive 3D <br/>
+              <span className="text-gold-gradient text-3xl md:text-4xl lg:text-5xl block mt-2">Seshadri Lab</span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="mt-4 text-neutral-300 max-w-lg mx-auto lg:mx-0 text-lg leading-relaxed"
+            >
+              Bring your UI to life with beautiful 3D scenes. Pioneering the Future of Wearable Bioelectronics &amp; Digital Health.
+            </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          style={{
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
-            fontWeight: 700,
-            lineHeight: 1.15,
-            letterSpacing: "-0.02em",
-            marginBottom: "1.5rem",
-          }}
-        >
-          Pioneering the Future of{" "}
-          <span className="text-gold-gradient">Wearable Bioelectronics</span>
-          {" "}& Digital Health
-        </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              style={{
+                display: "flex",
+                gap: "1rem",
+                marginTop: "2.5rem",
+                justifyContent: "center",
+              }}
+              className="lg:justify-start"
+            >
+              <a href="#research" className="btn-primary">
+                Explore Research
+              </a>
+              <a href="#publications" className="btn-outline">
+                Publications
+              </a>
+            </motion.div>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-          style={{
-            fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
-            color: "var(--text-secondary)",
-            maxWidth: "650px",
-            margin: "0 auto 2.5rem",
-            lineHeight: 1.8,
-          }}
-        >
-          Developing next-generation wearable sensors, bioelectronics platforms,
-          and digital therapeutics to transform healthcare and human performance.
-        </motion.p>
+          {/* Right content - Spline 3D Scene */}
+          <div className="flex-1 relative min-h-[500px] lg:min-h-full w-full">
+            <SplineScene 
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full object-cover lg:absolute lg:inset-0"
+            />
+          </div>
+        </div>
 
-        {/* CTA Buttons */}
+        {/* Scroll Indicator */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
           style={{
+            position: "absolute",
+            bottom: "2rem",
+            left: "50%",
+            transform: "translateX(-50%)",
             display: "flex",
-            gap: "1rem",
-            justifyContent: "center",
-            flexWrap: "wrap",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.5rem",
+            zIndex: 20,
           }}
         >
-          <a href="#research" className="btn-primary">
-            Explore Research
-          </a>
-          <a href="#publications" className="btn-outline">
-            Publications
-          </a>
+          <span
+            style={{
+              fontSize: "0.7rem",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--text-muted)",
+            }}
+          >
+            Scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown size={20} color="var(--accent-gold)" />
+          </motion.div>
         </motion.div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        style={{
-          position: "absolute",
-          bottom: "2rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "0.7rem",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            color: "var(--text-muted)",
-          }}
-        >
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ChevronDown size={20} color="var(--accent-gold)" />
-        </motion.div>
-      </motion.div>
+      </Card>
+      
+      <style jsx global>{`
+        @keyframes spotlight {
+          0% {
+            opacity: 0;
+            transform: translate(-72%, -62%) scale(0.5);
+          }
+          100% {
+            opacity: 1;
+            transform: translate(-50%,-40%) scale(1);
+          }
+        }
+        .animate-spotlight {
+          animation: spotlight 2s ease .75s 1 forwards;
+        }
+      `}</style>
     </section>
   );
 }
