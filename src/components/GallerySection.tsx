@@ -1,10 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-const galleryImages = [
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+export const galleryImages = [
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/e46e740a-8e79-4802-9df5-5229af14c458/D9E9551D-6C17-44B5-81C5-456DF3B34534D2C703AF-0DC3-45E2-838E-C2C741DC9BD7.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/c0f420c5-67fc-48ac-978f-43fbbe2fd76f/BEDF1DA6-5240-483F-844F-B7442A7A91D803FC0B36-0AF9-4CE2-BF3E-A9118202D179.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/a1f8a55c-4630-4aae-a080-bd0e91b4f700/53B2BEB4-CC0C-4FA6-9CFE-9FBD193459E55429A2BD-7FBA-4D7F-833A-6AF625129B9C.jpg",
@@ -17,301 +24,118 @@ const galleryImages = [
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/dd7a4cc2-217d-4ea2-941a-8a7e481a7e50/1415B1A4-BEFB-43C2-BD6E-8D7868556B88.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/f8da2024-3742-4102-8d92-f4717af4b1ac/IMG_2049.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/3b142bc3-563a-42c1-b072-fb68f4f23343/2.jpeg",
-  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/a74d94b8-8d12-40b7-bebc-8af972bc3c43/F90FCD55-A82D-4C75-B710-3595DF3B3F78IMG_9670.jpeg",
+  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/a74d94b8-8d12-40b7-bebc-8af972bc3c43/F90FCD55-A82D-4C75-B710-3595DF3B3F78IMG_9670.jpeg"
 ];
 
 export default function GallerySection() {
-  const sectionRef = useRef(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = scrollRef.current.clientWidth * 0.7;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  };
-
-  const openLightbox = (idx: number) => setLightboxIdx(idx);
-  const closeLightbox = () => setLightboxIdx(null);
-  const prevImage = () =>
-    setLightboxIdx((p) =>
-      p !== null ? (p - 1 + galleryImages.length) % galleryImages.length : null
-    );
-  const nextImage = () =>
-    setLightboxIdx((p) =>
-      p !== null ? (p + 1) % galleryImages.length : null
-    );
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <>
-      <section id="gallery" ref={sectionRef}>
-        <div className="section-container">
-          <motion.div
-            className="section-header"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2>Lab Gallery</h2>
-            <p>
-              A glimpse into our lab environment, experimental setups, and the
-              team behind the research.
-            </p>
-          </motion.div>
-
-          {/* Carousel Container */}
-          <div style={{ position: "relative" }}>
-            {/* Scroll Buttons */}
-            <button
-              onClick={() => scroll("left")}
-              aria-label="Scroll left"
-              style={{
-                position: "absolute",
-                left: "-20px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                zIndex: 20,
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                background: "var(--bg-card)",
-                border: "1px solid var(--border-card)",
-                color: "var(--text-primary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                backdropFilter: "blur(10px)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--accent-gold)";
-                e.currentTarget.style.background = "var(--bg-card-hover)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--border-card)";
-                e.currentTarget.style.background = "var(--bg-card)";
-              }}
-            >
-              <ChevronLeft size={20} />
-            </button>
-
-            <button
-              onClick={() => scroll("right")}
-              aria-label="Scroll right"
-              style={{
-                position: "absolute",
-                right: "-20px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                zIndex: 20,
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                background: "var(--bg-card)",
-                border: "1px solid var(--border-card)",
-                color: "var(--text-primary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                backdropFilter: "blur(10px)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--accent-gold)";
-                e.currentTarget.style.background = "var(--bg-card-hover)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--border-card)";
-                e.currentTarget.style.background = "var(--bg-card)";
-              }}
-            >
-              <ChevronRight size={20} />
-            </button>
-
-            {/* Scrollable Track */}
-            <div
-              ref={scrollRef}
-              style={{
-                display: "flex",
-                gap: "1rem",
-                overflowX: "auto",
-                scrollSnapType: "x mandatory",
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-                padding: "1rem 0",
-              }}
-            >
-              {galleryImages.map((src, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: i * 0.06, duration: 0.5 }}
-                  onClick={() => openLightbox(i)}
-                  style={{
-                    flex: "0 0 300px",
-                    height: "220px",
-                    borderRadius: "12px",
-                    overflow: "hidden",
-                    scrollSnapAlign: "start",
-                    cursor: "pointer",
-                    position: "relative",
-                    border: "1px solid var(--border-card)",
-                    transition: "border-color 0.3s ease, box-shadow 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--accent-gold-dim)";
-                    e.currentTarget.style.boxShadow = "0 8px 30px rgba(0,0,0,0.4)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border-card)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  <img
-                    src={src}
-                    alt={`Lab gallery image ${i + 1}`}
-                    loading="lazy"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.transform = "scale(1.05)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.transform = "scale(1)")
-                    }
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Lightbox */}
-      {lightboxIdx !== null && (
-        <div
-          onClick={closeLightbox}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            background: "rgba(0,0,0,0.92)",
-            backdropFilter: "blur(20px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+    <section
+      id="gallery"
+      className="min-h-[100vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden relative bg-black"
+    >
+      <div className="section-container w-full max-w-[1920px] mx-auto">
+        <motion.div
+          className="section-header text-center mb-8 flex flex-col items-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
         >
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              closeLightbox();
-            }}
-            aria-label="Close lightbox"
-            style={{
-              position: "absolute",
-              top: "1.5rem",
-              right: "1.5rem",
-              background: "none",
-              border: "none",
-              color: "white",
-              cursor: "pointer",
-              padding: "0.5rem",
-            }}
-          >
-            <X size={28} />
-          </button>
+          <h2 className="text-3xl lg:text-5xl mb-4">Life at the Lab</h2>
+          <p className="text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed text-neutral-400">
+            A glimpse into our collaborative ecosystem, experiments, and team milestones.
+          </p>
+        </motion.div>
 
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              prevImage();
-            }}
-            aria-label="Previous image"
-            style={{
-              position: "absolute",
-              left: "1.5rem",
-              background: "rgba(255,255,255,0.1)",
-              border: "none",
-              color: "white",
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ChevronLeft size={24} />
-          </button>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="w-full relative px-0 flex-1 flex flex-col justify-center min-h-[65vh]"
+        >
+          {mounted && (
+            <Swiper
+              effect={'coverflow'}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              initialSlide={2}
+              coverflowEffect={{
+                rotate: 0, // flat
+                stretch: 100, // pull them closer
+                depth: 250, // 3D depth
+                modifier: 1.5,
+                slideShadows: true,
+              }}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              navigation={true}
+              modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
+              className="mySwiper w-full h-full pb-16"
+            >
+              {galleryImages.map((src, index) => (
+                <SwiperSlide 
+                  key={index} 
+                  className="w-[85vw] md:w-[70vw] lg:w-[60vw]"
+                >
+                  <div className="w-full h-[60vh] flex items-center justify-center rounded-xl overflow-hidden relative">
+                    <img 
+                      src={src} 
+                      alt={`Gallery view ${index + 1}`} 
+                      className="w-full h-full object-contain"
+                      loading={index < 3 ? "eager" : "lazy"}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+        </motion.div>
+      </div>
 
-          <img
-            src={galleryImages[lightboxIdx]}
-            alt={`Gallery image ${lightboxIdx + 1}`}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              maxWidth: "85vw",
-              maxHeight: "85vh",
-              objectFit: "contain",
-              borderRadius: "8px",
-            }}
-          />
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              nextImage();
-            }}
-            aria-label="Next image"
-            style={{
-              position: "absolute",
-              right: "1.5rem",
-              background: "rgba(255,255,255,0.1)",
-              border: "none",
-              color: "white",
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ChevronRight size={24} />
-          </button>
-
-          <div
-            style={{
-              position: "absolute",
-              bottom: "1.5rem",
-              color: "var(--text-secondary)",
-              fontSize: "0.875rem",
-            }}
-          >
-            {lightboxIdx + 1} / {galleryImages.length}
-          </div>
-        </div>
-      )}
-
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          display: none;
+      <style jsx global>{`
+        .swiper-pagination-bullet {
+          background-color: var(--text-muted) !important;
+          opacity: 0.5;
+        }
+        .swiper-pagination-bullet-active {
+          background-color: var(--accent-gold) !important;
+          opacity: 1;
+        }
+        .swiper-button-next, .swiper-button-prev {
+          color: var(--accent-gold) !important;
+          background: rgba(0,0,0,0.5);
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+        .swiper-button-next::after, .swiper-button-prev::after {
+          font-size: 20px;
+          text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .swiper-slide {
+          transition: filter 0.3s, opacity 0.3s;
+          filter: brightness(0.3);
+          opacity: 0.5;
+        }
+        .swiper-slide-active {
+          filter: brightness(1);
+          opacity: 1;
         }
       `}</style>
-    </>
+    </section>
   );
 }

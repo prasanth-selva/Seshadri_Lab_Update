@@ -46,6 +46,7 @@ export default function PublicationsSection() {
         background: "var(--bg-secondary)",
         position: "relative",
       }}
+      className="min-h-[100vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden"
     >
       <div
         style={{
@@ -59,16 +60,16 @@ export default function PublicationsSection() {
         }}
       />
 
-      <div className="section-container">
+      <div className="section-container w-full max-w-[1600px] mx-auto px-6 lg:px-12">
         <motion.div
-          className="section-header"
+          className="section-header text-center mb-16 flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2>Featured Publications</h2>
-          <p>
+          <h2 className="text-3xl lg:text-5xl mb-6">Featured Publications</h2>
+          <p className="text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed text-center">
             Our work is published in leading journals, advancing the
             scientific understanding of wearable bioelectronics and digital
             health.
@@ -80,49 +81,30 @@ export default function PublicationsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-            gap: "2rem",
-            maxWidth: "900px",
-            margin: "0 auto",
-          }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 max-w-6xl mx-auto"
         >
           {publications.map((pub) => (
             <motion.div
               key={pub.title}
               variants={cardVariants}
-              className="glass-card"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                cursor: "pointer",
-              }}
+              className="glass-card flex flex-col cursor-pointer hover:border-[var(--accent-gold)]"
             >
               {/* Journal Cover */}
-              <div
-                style={{
-                  padding: "2rem",
-                  display: "flex",
-                  justifyContent: "center",
-                  background:
-                    "linear-gradient(135deg, rgba(201,168,76,0.05), rgba(201,168,76,0.02))",
-                }}
-              >
+              <div className="p-8 lg:p-12 flex justify-center bg-gradient-to-br from-[rgba(201,168,76,0.05)] to-[rgba(201,168,76,0.02)]">
                 <img
                   src={pub.image}
                   alt={pub.journal}
                   loading="lazy"
                   style={{
-                    height: "240px",
+                    height: "360px",
                     width: "auto",
                     objectFit: "contain",
-                    filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.5))",
+                    filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))",
                     transition:
                       "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
                   }}
                   onMouseEnter={(e) =>
-                    (e.currentTarget.style.transform = "scale(1.05) rotate(-1deg)")
+                    (e.currentTarget.style.transform = "scale(1.05) rotate(-2deg)")
                   }
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.transform = "scale(1) rotate(0deg)")
@@ -131,62 +113,23 @@ export default function PublicationsSection() {
               </div>
 
               {/* Content */}
-              <div style={{ padding: "1.5rem 1.75rem 2rem", flex: 1, display: "flex", flexDirection: "column" }}>
+              <div className="p-6 lg:p-8 flex-1 flex flex-col">
                 {/* Journal Badge */}
-                <div
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.4rem",
-                    padding: "0.35rem 0.75rem",
-                    background: "var(--accent-gold-dim)",
-                    borderRadius: "50px",
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    color: "var(--accent-gold)",
-                    marginBottom: "1rem",
-                    width: "fit-content",
-                  }}
-                >
-                  <BookOpen size={12} />
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--accent-gold-dim)] rounded-full text-xs font-bold text-[var(--accent-gold)] mb-4 w-fit uppercase tracking-wider">
+                  <BookOpen size={14} />
                   {pub.journal} · {pub.year}
                 </div>
 
-                <h3
-                  style={{
-                    fontSize: "1.1rem",
-                    fontWeight: 700,
-                    lineHeight: 1.4,
-                    marginBottom: "0.75rem",
-                    color: "var(--text-primary)",
-                  }}
-                >
+                <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-3 color-[var(--text-primary)]">
                   {pub.title}
                 </h3>
 
-                <p
-                  style={{
-                    fontSize: "0.875rem",
-                    lineHeight: 1.7,
-                    color: "var(--text-secondary)",
-                    flex: 1,
-                  }}
-                >
+                <p className="text-base lg:text-lg leading-relaxed color-[var(--text-secondary)] flex-1">
                   {pub.description}
                 </p>
 
-                <div
-                  style={{
-                    marginTop: "1.25rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    color: "var(--accent-gold)",
-                    fontSize: "0.875rem",
-                    fontWeight: 600,
-                  }}
-                >
-                  Read Publication <ExternalLink size={14} />
+                <div className="mt-6 flex items-center gap-2 text-[var(--accent-gold)] text-base font-bold uppercase tracking-wide group hover:translate-x-2 transition-transform">
+                  Read Publication <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </motion.div>

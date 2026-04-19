@@ -70,6 +70,7 @@ export default function ResearchSection() {
         background: "var(--bg-secondary)",
         position: "relative",
       }}
+      className="min-h-[100vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden"
     >
       {/* Top fade separator */}
       <div
@@ -84,16 +85,16 @@ export default function ResearchSection() {
         }}
       />
 
-      <div className="section-container">
+      <div className="section-container w-full max-w-[1600px] mx-auto px-6 lg:px-12">
         <motion.div
-          className="section-header"
+          className="section-header text-center mb-16 flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2>Research Areas</h2>
-          <p>
+          <h2 className="text-3xl lg:text-5xl mb-6">Research Areas</h2>
+          <p className="text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed text-center">
             Our interdisciplinary team explores the convergence of materials
             science, electrical engineering, and biomedical innovation to push
             the boundaries of digital health.
@@ -105,17 +106,13 @@ export default function ResearchSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "1.5rem",
-          }}
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12"
         >
           {researchAreas.map((area) => (
             <motion.div
               key={area.title}
               variants={cardVariants}
-              className="glass-card"
+              className="glass-card flex flex-col h-full"
               style={{ cursor: "pointer" }}
             >
               {/* Image */}
@@ -123,7 +120,7 @@ export default function ResearchSection() {
                 style={{
                   position: "relative",
                   width: "100%",
-                  height: "200px",
+                  height: "240px",
                   overflow: "hidden",
                 }}
               >
@@ -160,24 +157,11 @@ export default function ResearchSection() {
               </div>
 
               {/* Content */}
-              <div style={{ padding: "1.25rem 1.5rem 1.75rem" }}>
-                <h3
-                  style={{
-                    fontSize: "1.2rem",
-                    fontWeight: 700,
-                    marginBottom: "0.75rem",
-                    color: "var(--text-primary)",
-                  }}
-                >
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl lg:text-2xl font-bold mb-3 color-[var(--text-primary)]">
                   {area.title}
                 </h3>
-                <p
-                  style={{
-                    fontSize: "0.9rem",
-                    lineHeight: 1.7,
-                    color: "var(--text-secondary)",
-                  }}
-                >
+                <p className="text-base lg:text-lg leading-relaxed color-[var(--text-secondary)]">
                   {area.description}
                 </p>
               </div>
