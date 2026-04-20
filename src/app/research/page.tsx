@@ -78,16 +78,16 @@ export default function ResearchPage() {
       <Navbar />
       <main className="bg-[var(--bg-primary)] min-h-screen pt-[72px] text-[var(--text-primary)]">
         {/* HERO SECTION */}
-        <section className="relative px-6 py-24 md:py-32 lg:px-12 max-w-[1600px] mx-auto flex flex-col items-start justify-center min-h-[60vh] overflow-hidden">
+        <section className="relative px-6 pt-28 pb-20 md:py-32 lg:px-12 max-w-[1600px] mx-auto flex flex-col items-start justify-center min-h-[60vh] overflow-hidden">
           <div className="absolute top-0 right-0 w-full md:w-1/2 h-[500px] bg-[radial-gradient(ellipse_at_top_right,rgba(201,168,76,0.15),transparent_70%)] pointer-events-none" />
           
           <motion.h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-left mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400 max-w-4xl"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-left mb-6 sm:mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400 max-w-4xl leading-tight sm:leading-tight md:leading-tight lg:leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Driving Innovation in<br/> Healthcare Engineering
+            Driving Innovation in<br className="hidden sm:block" /> Healthcare Engineering
           </motion.h1>
           
           <motion.div
@@ -106,14 +106,14 @@ export default function ResearchPage() {
         </section>
 
         {/* PASSION SECTION */}
-        <section className="px-6 py-20 lg:px-12 max-w-[1600px] mx-auto">
+        <section className="px-6 py-16 md:py-20 lg:px-12 max-w-[1600px] mx-auto">
           <motion.div 
             className="mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-white">What Are We Passionate About?</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-white leading-tight">What Are We Passionate About?</h2>
             <div className="h-1 w-24 bg-[var(--accent-gold)] rounded-full" />
           </motion.div>
 
@@ -133,8 +133,8 @@ export default function ResearchPage() {
                     <Icon size={32} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-3 text-white">{area.title}</h3>
-                    <p className="text-neutral-400 leading-relaxed">{area.description}</p>
+                    <h3 className="text-xl font-bold mb-3 text-white leading-snug">{area.title}</h3>
+                    <p className="text-neutral-400 leading-relaxed text-sm md:text-base">{area.description}</p>
                   </div>
                 </motion.div>
               );
@@ -143,7 +143,7 @@ export default function ResearchPage() {
         </section>
 
         {/* LIBRARY OF INNOVATION */}
-        <section className="px-6 py-24 lg:px-12 bg-neutral-900/30 border-y border-white/5">
+        <section className="px-6 py-16 md:py-24 lg:px-12 bg-neutral-900/30 border-y border-white/5">
           <div className="max-w-[1600px] mx-auto">
             <motion.div 
               className="mb-16"
@@ -151,8 +151,8 @@ export default function ResearchPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
             >
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-white">Our Library of Innovation</h2>
-              <p className="text-neutral-400 max-w-2xl text-lg">Pioneering different verticals within bioengineering to deliver next-generation healthcare solutions.</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-white leading-tight">Our Library of Innovation</h2>
+              <p className="text-neutral-400 max-w-2xl text-base md:text-lg">Pioneering different verticals within bioengineering to deliver next-generation healthcare solutions.</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -165,7 +165,7 @@ export default function ResearchPage() {
                   transition={{ delay: index * 0.05, duration: 0.4 }}
                   className="bg-neutral-950 p-8 rounded-2xl border border-white/5 hover:bg-neutral-900 transition-colors"
                 >
-                  <h3 className="text-lg font-bold text-white mb-4 line-clamp-2">{item.title}</h3>
+                  <h3 className="text-lg font-bold text-white mb-3 line-clamp-2 leading-snug">{item.title}</h3>
                   <p className="text-sm text-neutral-400 leading-relaxed">{item.description}</p>
                 </motion.div>
               ))}
@@ -174,7 +174,7 @@ export default function ResearchPage() {
         </section>
 
         {/* ONGOING STUDIES / PROJECTS */}
-        <section className="px-6 py-24 lg:px-12 max-w-[1600px] mx-auto">
+        <section className="px-6 py-16 md:py-24 lg:px-12 max-w-[1600px] mx-auto">
           <motion.div 
             className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
             initial={{ opacity: 0, x: -30 }}
@@ -182,9 +182,9 @@ export default function ResearchPage() {
             viewport={{ once: true, margin: "-100px" }}
           >
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-white">Ongoing Studies & Initiatives</h2>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-white leading-tight">Ongoing Studies & Initiatives</h2>
               <div className="h-1 w-24 bg-[var(--accent-gold)] rounded-full mb-6" />
-              <p className="text-neutral-400 max-w-2xl text-lg">A selection of our active research projects and clinical trials across various medical disciplines.</p>
+              <p className="text-neutral-400 max-w-2xl text-base md:text-lg">A selection of our active research projects and clinical trials across various medical disciplines.</p>
             </div>
           </motion.div>
           
@@ -210,7 +210,7 @@ export default function ResearchPage() {
         </section>
 
         {/* WHY IT MATTERS - IMPACT QUOTE */}
-        <section className="relative px-6 py-32 lg:px-12 bg-neutral-950 text-white overflow-hidden border-y border-white/5">
+        <section className="relative px-6 py-20 md:py-32 lg:px-12 bg-neutral-950 text-white overflow-hidden border-y border-white/5">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(201,168,76,0.1),transparent_70%)] pointer-events-none" />
           <div className="max-w-[1200px] mx-auto relative z-10">
             <motion.div 
@@ -219,7 +219,7 @@ export default function ResearchPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
             >
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-white">Why Does It All Matter?</h2>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-white leading-tight">Why Does It All Matter?</h2>
               <div className="h-1 w-24 bg-[var(--accent-gold)] rounded-full" />
             </motion.div>
             
@@ -233,7 +233,7 @@ export default function ResearchPage() {
               <p>
                 "The thesis of the Seshadri Lab is to engineer to improve patient outcomes... For me, it's solving the hardest problems in medicine through engineering. It’s so grandkids can play with their grandparents, it’s so sons and daughters can give their parents that long-lasting hug..."
               </p>
-              <p className="text-lg md:text-2xl text-[var(--accent-gold)] italic">
+              <p className="text-base md:text-2xl text-[var(--accent-gold)] italic leading-relaxed">
                 "It’s the incessant desire to create value through first principles grounded in data, and driven to solve the unmet clinical need."
               </p>
             </motion.div>
@@ -241,15 +241,15 @@ export default function ResearchPage() {
         </section>
 
         {/* PUBLICATIONS SECTION */}
-        <section className="px-6 py-24 lg:px-12 max-w-[1600px] mx-auto bg-neutral-900/30 border-y border-white/5">
+        <section className="px-6 py-16 md:py-24 lg:px-12 max-w-[1600px] mx-auto bg-neutral-900/30 border-y border-white/5">
            <motion.div 
              className="mb-16"
              initial={{ opacity: 0, y: 30 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true, margin: "-100px" }}
            >
-             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">Our Research in Action</h2>
-             <p className="text-neutral-400 max-w-2xl text-lg">Notable publications spanning digital medicine, bioelectric applications, and sports science.</p>
+             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-4 leading-tight">Our Research in Action</h2>
+             <p className="text-neutral-400 max-w-2xl text-base md:text-lg">Notable publications spanning digital medicine, bioelectric applications, and sports science.</p>
            </motion.div>
 
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -276,7 +276,7 @@ export default function ResearchPage() {
                     <div className="text-[10px] uppercase font-bold tracking-wider text-[var(--accent-gold)] mb-3 bg-[var(--accent-gold-dim)] w-fit px-2 py-1 rounded">
                       {pub.journal}
                     </div>
-                    <h3 className="text-sm md:text-base font-bold text-neutral-200 leading-snug">{pub.title}</h3>
+                    <h3 className="text-sm md:text-base font-bold text-neutral-200 leading-normal">{pub.title}</h3>
                   </div>
                   <div className="text-xs uppercase font-bold text-neutral-500 hover:text-white transition-colors cursor-pointer w-fit flex items-center gap-1 mt-auto">
                     Read More ↗

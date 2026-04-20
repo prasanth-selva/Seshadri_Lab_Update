@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   SESHADRI LAB — Design System
+   SESHADRI LAB — Design System v2
    Premium dark aesthetic with warm amber/gold accents
    ============================================================ */
 
@@ -36,8 +36,9 @@
   --border-card: rgba(255, 255, 255, 0.06);
 
   /* Spacing */
-  --section-padding: clamp(4rem, 10vw, 8rem);
-  --container-max: 1280px;
+  --section-py: clamp(4rem, 8vw, 7rem);
+  --section-px: clamp(1.25rem, 5vw, 5rem);
+  --container-max: 1400px;
 
   /* Transitions */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -45,7 +46,7 @@
 }
 
 /* ---- Global Reset & Base ---- */
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -53,26 +54,31 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: 72px; /* Navbar height */
+  scroll-padding-top: 72px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 }
 
+/* Removed scroll-snap from html — it was causing content to hide under navbar */
 section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  overflow: hidden;
 }
 
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
 }
 
-/* ---- Typography ---- */
+/* ================================================
+   TYPOGRAPHY — Single Source of Truth
+   All sizes use clamp() for fluid scaling.
+   Do NOT override with arbitrary Tailwind sizes.
+   ================================================ */
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.15;
@@ -80,26 +86,59 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
 }
 
-h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
-h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.75rem); }
-
-p {
-  color: var(--text-secondary);
-  line-height: 1.75;
+/* Page-level hero title */
+.text-display {
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
-/* ---- Section Container ---- */
+/* Section headings */
+.text-heading {
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* Card headings */
+.text-subheading {
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Body text */
+.text-body {
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+/* Small / caption text */
+.text-caption {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* ---- Section Layout ---- */
+.section-wrap {
+  padding: var(--section-py) var(--section-px);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
 .section-container {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--section-padding) 1.5rem;
+  padding: var(--section-py) var(--section-px);
 }
 
 /* ---- Section Header ---- */
 .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .section-header h2 {
@@ -122,8 +161,10 @@ p {
 
 .section-header p {
   max-width: 600px;
-  margin: 1.5rem auto 0;
-  font-size: 1.1rem;
+  margin: 1.25rem auto 0;
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--text-secondary);
 }
 
 /* ---- Gold Accent Text ---- */
@@ -154,6 +195,51 @@ p {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px var(--accent-gold-dim);
 }
 
+/* ---- 3D Flip Card ---- */
+.flip-card {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s var(--ease-out-expo);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: var(--bg-card-hover);
+  border: 1px solid var(--accent-gold-dim);
+}
+
+/* ---- 3D Tilt Card ---- */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.tilt-card-content {
+  transform: translateZ(20px);
+}
+
 /* ---- Buttons ---- */
 .btn-primary {
   display: inline-flex;
@@ -169,6 +255,7 @@ p {
   cursor: pointer;
   transition: all 0.4s var(--ease-out-expo);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .btn-primary:hover {
@@ -190,6 +277,7 @@ p {
   cursor: pointer;
   transition: all 0.4s var(--ease-out-expo);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .btn-outline:hover {
@@ -200,13 +288,13 @@ p {
 
 /* ---- Custom Scrollbar ---- */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-card-hover);
+  background: #2a2a2a;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -230,30 +318,75 @@ p {
   to { opacity: 1; }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(0.5deg); }
+  66% { transform: translateY(-4px) rotate(-0.5deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--accent-gold-dim); }
+  50% { box-shadow: 0 0 50px var(--accent-gold-glow), 0 0 80px rgba(201,168,76,0.1); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px var(--accent-gold-dim); }
-  50% { box-shadow: 0 0 40px var(--accent-gold-glow); }
-}
-
-@keyframes scroll-indicator {
-  0% { opacity: 1; transform: translateY(0); }
-  50% { opacity: 0.5; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20px, -15px) scale(1.05); }
+  50% { transform: translate(-10px, 20px) scale(0.98); }
+  75% { transform: translate(-25px, -5px) scale(1.02); }
+}
+
+/* ---- Utility Classes ---- */
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-rotate-slow { animation: rotate-slow 20s linear infinite; }
+
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
+/* ---- Golden Divider ---- */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold-dim), transparent);
+  border: none;
+  margin: 0;
+}
+
+/* ---- Badge ---- */
+.badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--accent-gold-dim);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
 }
 
 /* ---- Selection ---- */
@@ -266,10 +399,30 @@ p {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 /* ---- Link Reset ---- */
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* --- Particle Canvas background --- */
+.particle-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Noise Overlay ---- */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
 }
