@@ -94,11 +94,17 @@ export default function ResearchSection() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-2xl lg:text-4xl mb-4 font-bold tracking-tight">Research Areas</h2>
-          <p className="text-base text-neutral-400 max-w-3xl mx-auto leading-relaxed text-center">
+          <p className="text-base text-neutral-400 max-w-3xl mx-auto leading-relaxed text-center mb-6">
             Our interdisciplinary team explores the convergence of materials
             science, electrical engineering, and biomedical innovation to push
             the boundaries of digital health.
           </p>
+          <a
+            href="/research"
+            className="inline-flex items-center justify-center px-6 py-2 border border-[var(--accent-gold)] text-[var(--accent-gold)] rounded-full text-sm font-semibold uppercase tracking-wider hover:bg-[var(--accent-gold)] hover:text-black transition-colors"
+          >
+            Explore All Research
+          </a>
         </motion.div>
 
         <motion.div
