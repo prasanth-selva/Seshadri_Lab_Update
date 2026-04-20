@@ -93,8 +93,8 @@ export default function ResearchSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-2xl lg:text-4xl mb-4 font-bold tracking-tight">Research Areas</h2>
-          <p className="text-base text-neutral-400 max-w-3xl mx-auto leading-relaxed text-center mb-6">
+          <h2 className="text-heading mb-4">Research Areas</h2>
+          <p className="text-body max-w-3xl mx-auto text-center mb-6">
             Our interdisciplinary team explores the convergence of materials
             science, electrical engineering, and biomedical innovation to push
             the boundaries of digital health.
@@ -164,10 +164,10 @@ export default function ResearchSection() {
 
               {/* Content */}
               <div className="p-5 flex-1 flex flex-col">
-                <h3 className="text-lg font-bold mb-2 color-[var(--text-primary)] tracking-tight">
+                <h3 className="text-subheading font-bold mb-2 tracking-tight" style={{ color: 'var(--text-primary)' }}>
                   {area.title}
                 </h3>
-                <p className="text-sm leading-relaxed color-[var(--text-secondary)] text-neutral-400">
+                <p className="text-body" style={{ fontSize: '0.875rem' }}>
                   {area.description}
                 </p>
               </div>

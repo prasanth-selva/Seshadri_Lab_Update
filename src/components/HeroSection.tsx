@@ -44,10 +44,10 @@ export default function HeroSection() {
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-500 leading-tight mb-2 tracking-tight">
+            <h1 className="text-display font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-500 mb-2 tracking-tight">
               Seshadri Lab
             </h1>
-            <p className="text-gold-gradient text-base md:text-lg lg:text-xl font-medium tracking-wide mb-6 uppercase letter-spacing-widest">
+            <p className="text-gold-gradient font-medium tracking-wide mb-6 uppercase" style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.1rem)', letterSpacing: '0.12em' }}>
               Lehigh University
             </p>
           </motion.div>
@@ -56,7 +56,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-neutral-400 max-w-lg text-sm md:text-base leading-relaxed font-light mb-8"
+            className="text-body max-w-lg mb-8"
           >
             Pioneering the future of wearable bioelectronics, digital therapeutics, and continuous human performance monitoring.
           </motion.p>

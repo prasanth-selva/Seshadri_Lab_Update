@@ -68,8 +68,8 @@ export default function PublicationsSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-2xl lg:text-4xl mb-4 font-bold tracking-tight">Featured Publications</h2>
-          <p className="text-base text-neutral-400 max-w-3xl mx-auto leading-relaxed text-center">
+          <h2 className="text-heading mb-4">Featured Publications</h2>
+          <p className="text-body max-w-3xl mx-auto text-center">
             Our work is published in leading journals, advancing the
             scientific understanding of wearable bioelectronics and digital
             health.
@@ -120,7 +120,7 @@ export default function PublicationsSection() {
                   {pub.journal} · {pub.year}
                 </div>
 
-                <h3 className="text-lg font-bold leading-snug mb-2 color-[var(--text-primary)]">
+                <h3 className="text-subheading font-bold leading-snug mb-2" style={{ color: 'var(--text-primary)' }}>
                   {pub.title}
                 </h3>
 
