@@ -2,362 +2,475 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
-import { MouseEvent, useRef } from "react";
-import { Activity, Globe, Cpu, Database, ChevronRight, BookOpen, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import { Activity, Globe, Cpu, Database, ChevronRight, ExternalLink, BookOpen, FlaskConical, Users, Clock } from "lucide-react";
 
-/* ─── shared tilt hook ─── */
-function useTilt(factor = 8) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rx = useSpring(useTransform(y, [-0.5, 0.5], [factor, -factor]), { stiffness: 200, damping: 22 });
-  const ry = useSpring(useTransform(x, [-0.5, 0.5], [-factor, factor]), { stiffness: 200, damping: 22 });
-  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - r.left) / r.width - 0.5);
-    y.set((e.clientY - r.top) / r.height - 0.5);
-  };
-  const onMouseLeave = () => { x.set(0); y.set(0); };
-  return { rx, ry, onMouseMove, onMouseLeave };
-}
+/* ── Fade-in animation helper ── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
 
-/* ─── Data ─── */
+/* ── Shared styles ── */
+const GOLD = "#c9a84c";
+const S = {
+  page: { background: "#080808", color: "#f5f0e8", minHeight: "100vh" } as React.CSSProperties,
+  container: {
+    maxWidth: 1440,
+    margin: "0 auto",
+    padding: "0 2.5rem",
+    width: "100%",
+  } as React.CSSProperties,
+  section: (bg = "transparent"): React.CSSProperties => ({
+    background: bg,
+    padding: "5rem 0",
+  }),
+  label: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    padding: "4px 12px",
+    borderRadius: 99,
+    border: `1px solid rgba(201,168,76,0.35)`,
+    background: "rgba(201,168,76,0.08)",
+    color: GOLD,
+    fontSize: "0.7rem",
+    fontWeight: 700,
+    letterSpacing: "0.1em",
+    textTransform: "uppercase" as const,
+    marginBottom: "1.25rem",
+  } as React.CSSProperties,
+  h2: {
+    fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
+    fontWeight: 800,
+    letterSpacing: "-0.02em",
+    lineHeight: 1.15,
+    color: "#f5f0e8",
+    marginBottom: "0.75rem",
+  } as React.CSSProperties,
+  divider: {
+    height: 2,
+    width: 40,
+    background: GOLD,
+    borderRadius: 4,
+    marginBottom: "1.5rem",
+  } as React.CSSProperties,
+  bodyText: {
+    fontSize: "0.9rem",
+    lineHeight: 1.8,
+    color: "#9e9589",
+    maxWidth: 560,
+  } as React.CSSProperties,
+  card: {
+    background: "#111111",
+    border: "1px solid rgba(255,255,255,0.07)",
+    borderRadius: 14,
+    padding: "1.5rem",
+  } as React.CSSProperties,
+};
+
+/* ── Data ── */
 const passionAreas = [
-  { title: "Wearable Healthcare Technologies", description: "Developing devices for remote monitoring and personalized health management.", icon: Activity },
-  { title: "Lean Engineering for Global Health", description: "Designing cost-effective solutions for resource-limited settings across the globe.", icon: Globe },
-  { title: "Biomechanical Systems", description: "Investigating hardware-based medical solutions to address unmet clinical needs.", icon: Cpu },
-  { title: "Clinical Applications of Data Science", description: "Predictive modeling and machine learning to enhance diagnosis and treatment.", icon: Database },
+  { title: "Wearable Healthcare Technologies", desc: "Developing devices for remote monitoring and personalized health management.", icon: Activity },
+  { title: "Lean Engineering for Global Health", desc: "Designing cost-effective solutions for resource-limited settings across the globe.", icon: Globe },
+  { title: "Biomechanical Systems", desc: "Hardware-based medical solutions to address unmet clinical needs.", icon: Cpu },
+  { title: "Clinical Data Science", desc: "Predictive modeling and machine learning to enhance diagnosis and treatment.", icon: Database },
 ];
 
-const innovationLibrary = [
-  { title: "Wearable Healthcare Technologies", description: "Our wearable technologies aim to revolutionize remote health monitoring and early diagnostics." },
-  { title: "Sports Analytics for Human Performance", description: "Using data analytics and biomechanics, we optimize athletic performance and recovery." },
-  { title: "Frugal Engineering for Global Health", description: "We design low-cost, high-impact solutions to address critical healthcare challenges globally." },
-  { title: "Pediatric & Adolescent Health Analytics", description: "Combining wearable tech with clinical data, we enhance care for youth populations." },
-  { title: "Advanced Clinical Tools & Biosensors", description: "Our lab pioneers innovative tools for diagnostics and monitoring, bridging engineering and clinical practice." },
-  { title: "Rehabilitation and Remote Sensing", description: "Through cutting-edge technology, we improve access to care and rehabilitation services worldwide." },
+const verticals = [
+  { title: "Wearable Healthcare Technologies", desc: "Revolutionizing remote health monitoring and early diagnostics." },
+  { title: "Sports Analytics for Human Performance", desc: "Data analytics and biomechanics to optimize athletic performance and recovery." },
+  { title: "Frugal Engineering for Global Health", desc: "Low-cost, high-impact solutions to address critical healthcare challenges globally." },
+  { title: "Pediatric & Adolescent Health Analytics", desc: "Wearable tech and clinical data to enhance care for youth populations." },
+  { title: "Advanced Clinical Tools & Biosensors", desc: "Innovative tools for diagnostics and monitoring, bridging engineering and clinical practice." },
+  { title: "Rehabilitation and Remote Sensing", desc: "Cutting-edge technology to improve access to care and rehabilitation services worldwide." },
 ];
 
 const studies = [
   "Heart Rate Validation Study",
   "Wearable Impedance Sensor for Lymphedema",
-  "Menstrual Cycle and Performance Analytics",
+  "Menstrual Cycle & Performance Analytics",
   "Load Monitoring and Injury Prediction",
-  "Smart and Equitable Sanitization Holder (SESH)",
+  "Smart & Equitable Sanitization Holder (SESH)",
   "Flexible Electroceutical Electrode for Dysphagia",
   "Softball Analytics for Injury Prevention",
-  "Point-of-Care Biosensor for Abdominal Aortic Aneurysms",
+  "Point-of-Care Biosensor for Aortic Aneurysms",
   "SPO2 Efficacy Study",
   "Remote Rehabilitation Sensing (RRS)",
   "Drones and Remote Sensing (DRS)",
 ];
 
 const publications = [
-  { title: "Wearable sensors for monitoring the physiological and biochemical profile of the athlete", journal: "Npj Digital Medicine" },
-  { title: "Absorbent and flexible conductive nanocomposites for bioelectric applications", journal: "IEEE TBME" },
-  { title: "Accuracy of Apple Watch for detection of atrial fibrillation", journal: "Circulation" },
-  { title: "Wearable sensor technology to predict core body temperature: A systematic review", journal: "Sensors" },
-  { title: "Return to sport following COVID-19 lockdown and its impact on injury rates in German Soccer League", journal: "Frontiers" },
-  { title: "Wearable biosensors in congenital heart disease: Needs to advance the field", journal: "JACC Advances" },
-  { title: "Validation of hand-mounted wearable sensor for scratching movements in adults with atopic dermatitis", journal: "JAAD" },
-  { title: "Accuracy of the Apple Watch 4 to Measure Heart Rate in Patients With Atrial Fibrillation", journal: "IEEE JTEHM" },
-  { title: "Wearable technology in sports medicine to guide return-to-play following COVID-19 diagnosis", journal: "Digital Health" },
+  { journal: "Npj Digital Medicine", title: "Wearable sensors for monitoring the physiological and biochemical profile of the athlete" },
+  { journal: "IEEE TBME", title: "Absorbent and flexible conductive nanocomposites for bioelectric applications" },
+  { journal: "Circulation", title: "Accuracy of Apple Watch for detection of atrial fibrillation" },
+  { journal: "Sensors", title: "Wearable sensor technology to predict core body temperature: A systematic review" },
+  { journal: "JACC Advances", title: "Wearable biosensors in congenital heart disease: Needs to advance the field" },
+  { journal: "Digital Health", title: "Wearable technology in sports medicine to guide return-to-play following COVID-19 diagnosis" },
 ];
 
-/* shared container style */
-const container = "w-full max-w-[1280px] mx-auto px-6 lg:px-12";
+const stats = [
+  { n: "50+", label: "Publications", icon: BookOpen },
+  { n: "15+", label: "Active Projects", icon: FlaskConical },
+  { n: "30+", label: "Team Members", icon: Users },
+  { n: "8+", label: "Years Active", icon: Clock },
+];
 
-/* ─── Section Header ─── */
-function SectionHeader({ badge, title, subtitle }: { badge: string; title: string; subtitle?: string }) {
-  return (
-    <motion.div
-      className="mb-10"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6 }}
-    >
-      <span className="badge-gold mb-3 inline-flex">{badge}</span>
-      <h2 className="text-heading font-bold text-[var(--text-primary)] mb-2">{title}</h2>
-      <div className="h-0.5 w-12 bg-[var(--accent-gold)] rounded-full mb-3" />
-      {subtitle && (
-        <p className="text-body max-w-xl" style={{ color: "var(--text-secondary)" }}>
-          {subtitle}
-        </p>
-      )}
-    </motion.div>
-  );
-}
-
-/* ─── Passion Card with Tilt ─── */
-function PassionCard({ area, index }: { area: typeof passionAreas[0]; index: number }) {
-  const { rx, ry, onMouseMove, onMouseLeave } = useTilt(6);
-  const Icon = area.icon;
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      style={{ perspective: 800 }}
-    >
-      <motion.div
-        style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-        className="glass-card p-5 flex gap-4 items-start h-full cursor-default"
-      >
-        <div
-          style={{ transform: "translateZ(16px)", flexShrink: 0 }}
-          className="w-10 h-10 rounded-lg bg-[var(--accent-gold-dim)] flex items-center justify-center"
-        >
-          <Icon size={18} color="var(--accent-gold)" />
-        </div>
-        <div style={{ transform: "translateZ(10px)" }}>
-          <h3 className="text-subheading font-bold mb-1 text-[var(--text-primary)]">{area.title}</h3>
-          <p className="text-body leading-relaxed">{area.description}</p>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-/* ─── Innovation Card ─── */
-function InnovationCard({ item, index }: { item: typeof innovationLibrary[0]; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ delay: index * 0.07, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -4, transition: { duration: 0.25 } }}
-      className="relative bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border-card)] group overflow-hidden cursor-default"
-    >
-      <div className="absolute top-0 right-0 w-24 h-24 bg-[radial-gradient(circle_at_top_right,rgba(201,168,76,0.07),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-      <div className="w-6 h-0.5 bg-[var(--accent-gold)] mb-3 rounded-full group-hover:w-10 transition-all duration-400" />
-      <h3 className="text-subheading font-bold text-[var(--text-primary)] mb-2 leading-snug">{item.title}</h3>
-      <p className="text-body leading-relaxed text-sm">{item.description}</p>
-    </motion.div>
-  );
-}
-
-/* ─── Study Tag ─── */
-function StudyTag({ study, index }: { study: string; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -16 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ delay: (index % 6) * 0.06, duration: 0.4 }}
-      className="group flex items-center gap-2.5 p-3.5 rounded-lg border border-[var(--border-card)] bg-[var(--bg-card)] hover:border-[var(--accent-gold-dim)] hover:bg-[var(--bg-card-hover)] transition-all duration-300 cursor-default"
-    >
-      <ChevronRight size={12} className="text-[var(--accent-gold)] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-      <span className="text-body font-medium text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors leading-snug" style={{ fontSize: "0.82rem" }}>
-        {study}
-      </span>
-    </motion.div>
-  );
-}
-
-/* ─── Publication Card ─── */
-function PubCard({ pub, index }: { pub: typeof publications[0]; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ delay: (index % 3) * 0.07, duration: 0.4 }}
-      whileHover={{ y: -4, transition: { duration: 0.25 } }}
-      className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-card)] hover:border-[var(--accent-gold-dim)] transition-colors p-5 flex flex-col h-full gap-3"
-    >
-      <span className="badge-gold w-fit">{pub.journal}</span>
-      <p className="text-[var(--text-primary)] leading-snug flex-1 font-medium" style={{ fontSize: "0.82rem" }}>
-        {pub.title}
-      </p>
-      <span className="flex items-center gap-1 font-bold uppercase tracking-wider transition-colors cursor-pointer" style={{ fontSize: "0.7rem", color: "var(--accent-gold)" }}>
-        Read More <ExternalLink size={10} />
-      </span>
-    </motion.div>
-  );
-}
-
-/* ─── Page ─── */
+/* ── Page ── */
 export default function ResearchPage() {
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
   return (
     <>
       <Navbar />
-      <main style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}>
+      <main style={S.page}>
 
-        {/* ─── HERO ─── */}
-        <section
-          ref={heroRef}
-          style={{ paddingTop: "7rem", paddingBottom: "5rem", overflow: "hidden", position: "relative" }}
-        >
-          {/* Ambient glow */}
-          <div className="pointer-events-none absolute inset-0" aria-hidden>
-            <div style={{
-              position: "absolute", width: "700px", height: "700px",
-              top: "-20%", right: "-10%",
-              background: "radial-gradient(circle, rgba(201,168,76,0.09), transparent 65%)",
-              filter: "blur(90px)", borderRadius: "50%",
-            }} />
-          </div>
+        {/* ══════════════════ HERO ══════════════════ */}
+        <section style={{ ...S.section(), paddingTop: "6rem", paddingBottom: "3.5rem", position: "relative", overflow: "hidden" }}>
+          {/* Subtle ambient glow — far right */}
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none",
+            background: "radial-gradient(ellipse 60% 60% at 85% 30%, rgba(201,168,76,0.07) 0%, transparent 70%)"
+          }} />
 
+          <div style={S.container}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "3rem", alignItems: "end" }}>
 
-          <motion.div
-            style={{ y: heroY, opacity: heroOpacity, position: "relative", zIndex: 10, paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}
-          >
-            <motion.span
-              className="badge-gold mb-5 inline-flex"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              Seshadri Lab Research Hub
-            </motion.span>
+              {/* Left — Text */}
+              <div>
+                <motion.div style={S.label} initial="hidden" animate="show" variants={fadeUp} custom={0}>
+                  Research Hub
+                </motion.div>
 
-            <motion.h1
-              className="text-display font-bold mb-5 max-w-3xl"
-              style={{
-                background: "linear-gradient(155deg, #f5f0e8 30%, #c9a84c 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                lineHeight: 1.1,
-              }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-            >
-              Driving Innovation in<br />Healthcare Engineering
-            </motion.h1>
+                <motion.h1
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  custom={1}
+                  style={{
+                    fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+                    fontWeight: 800,
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.03em",
+                    marginBottom: "1.25rem",
+                    color: "#f5f0e8",
+                  }}
+                >
+                  Driving Innovation<br />
+                  <span style={{ color: GOLD }}>in Healthcare Engineering</span>
+                </motion.h1>
 
-            <motion.p
-              className="text-body max-w-2xl mb-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.22 }}
-            >
-              In the Seshadri Lab, we advance healthcare through wearable technologies, data-driven solutions,
-              and hardware-based systems — integrating engineering principles with clinical insights to transform
-              patient care.
-            </motion.p>
+                <motion.p
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  custom={2}
+                  style={{ ...S.bodyText, marginBottom: "1rem" }}
+                >
+                  In the Seshadri Lab, we advance healthcare through wearable technologies,
+                  data-driven solutions, and hardware-based systems — integrating engineering
+                  principles with clinical insights to transform patient care.
+                </motion.p>
 
-            <motion.p
-              className="font-semibold"
-              style={{ color: "var(--accent-gold)", fontSize: "0.88rem" }}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.34 }}
-            >
-              We envision a future where technology bridges gaps in healthcare — enabling personalized, accessible, and effective care for all.
-            </motion.p>
-          </motion.div>
-        </section>
+                <motion.p
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  custom={3}
+                  style={{ fontSize: "0.88rem", lineHeight: 1.7, color: GOLD, fontStyle: "italic" }}
+                >
+                  "We envision a future where technology bridges gaps in healthcare —
+                  enabling personalized, accessible, and effective care for all."
+                </motion.p>
+              </div>
 
-        <div className="gold-divider" />
-
-        {/* ─── PASSION AREAS ─── */}
-        <section style={{ padding: "4rem 0" }}>
-          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
-            <SectionHeader badge="Our Focus" title="What Are We Passionate About?" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {passionAreas.map((area, i) => (
-                <PassionCard key={area.title} area={area} index={i} />
-              ))}
+              {/* Right — Stats block */}
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={2}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "1rem",
+                  flexShrink: 0,
+                  width: 320,
+                }}
+              >
+                {stats.map(({ n, label, icon: Icon }) => (
+                  <div
+                    key={label}
+                    style={{
+                      ...S.card,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
+                      padding: "1.25rem",
+                    }}
+                  >
+                    <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(201,168,76,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Icon size={16} color={GOLD} />
+                    </div>
+                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#f5f0e8", lineHeight: 1 }}>{n}</div>
+                    <div style={{ fontSize: "0.72rem", color: "#6b6356", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</div>
+                  </div>
+                ))}
+              </motion.div>
             </div>
           </div>
         </section>
 
-        <div className="gold-divider" />
+        {/* Separator */}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.05)", margin: "0" }} />
 
-        {/* ─── LIBRARY OF INNOVATION ─── */}
-        <section style={{ padding: "4rem 0", background: "var(--bg-secondary)" }}>
-          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
-            <SectionHeader
-              badge="Research Verticals"
-              title="Our Library of Innovation"
-              subtitle="Pioneering different verticals within bioengineering to deliver next-generation healthcare solutions."
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {innovationLibrary.map((item, i) => (
-                <InnovationCard key={item.title} item={item} index={i} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <div className="gold-divider" />
-
-        {/* ─── ONGOING STUDIES ─── */}
-        <section style={{ padding: "4rem 0" }}>
-          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
-            <SectionHeader
-              badge="Active Work"
-              title="Ongoing Studies & Initiatives"
-              subtitle="A selection of our active research projects and clinical trials across various medical disciplines."
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {studies.map((study, i) => (
-                <StudyTag key={i} study={study} index={i} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <div className="gold-divider" />
-
-        {/* ─── WHY IT MATTERS ─── */}
-        <section style={{ padding: "4rem 0", background: "#060606", position: "relative", overflow: "hidden" }}>
-          <div className="pointer-events-none absolute inset-0" aria-hidden>
-            <div style={{
-              position: "absolute", width: "400px", height: "400px",
-              bottom: "-10%", right: "-5%",
-              background: "radial-gradient(circle, rgba(201,168,76,0.07), transparent 70%)",
-              filter: "blur(70px)", borderRadius: "50%",
-            }} />
-          </div>
-          <div className={`${container} relative z-10`} style={{ maxWidth: "800px" }}>
-            <SectionHeader badge="The Mission" title="Why Does It All Matter?" />
-            <motion.blockquote
-              className="pl-5 space-y-4"
-              style={{ borderLeft: "3px solid rgba(201,168,76,0.4)" }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.9 }}
-            >
-              <p style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.1rem)", lineHeight: 1.75, color: "var(--text-secondary)" }}>
-                &ldquo;The thesis of the Seshadri Lab is to engineer to improve patient outcomes… For me, it&apos;s
-                solving the hardest problems in medicine through engineering. It&apos;s so grandkids can play with
-                their grandparents, it&apos;s so sons and daughters can give their parents that long-lasting hug…&rdquo;
+        {/* ══════════════════ PASSION AREAS ══════════════════ */}
+        <section style={S.section("#0b0b0b")}>
+          <div style={S.container}>
+            {/* Section header */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", alignItems: "end", marginBottom: "3rem" }}>
+              <div>
+                <div style={S.label}>Our Focus</div>
+                <h2 style={S.h2}>What Are We<br />Passionate About?</h2>
+                <div style={{ ...S.divider, marginBottom: 0 }} />
+              </div>
+              <p style={{ ...S.bodyText }}>
+                Our interdisciplinary work sits at the crossroads of engineering,
+                medicine, and data science — focused on problems that matter most
+                for improving human health outcomes.
               </p>
-              <p style={{ fontSize: "clamp(0.85rem, 1.2vw, 1rem)", lineHeight: 1.7, color: "var(--accent-gold)", fontStyle: "italic", fontWeight: 600 }}>
-                &ldquo;It&apos;s the incessant desire to create value through first principles grounded in data, and
-                driven to solve the unmet clinical need.&rdquo;
-              </p>
-            </motion.blockquote>
+            </div>
+
+            {/* 2×2 Grid of passion cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+              {passionAreas.map(({ title, desc, icon: Icon }, i) => (
+                <motion.div
+                  key={title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: "-40px" }}
+                  custom={i}
+                  style={{
+                    ...S.card,
+                    display: "flex",
+                    gap: "1.25rem",
+                    alignItems: "flex-start",
+                    borderLeft: `3px solid rgba(201,168,76,0.3)`,
+                    transition: "border-color 0.2s, background 0.2s",
+                  }}
+                  whileHover={{ borderColor: "rgba(201,168,76,0.8)", backgroundColor: "#161616" } as never}
+                >
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(201,168,76,0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <Icon size={18} color={GOLD} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#f5f0e8", marginBottom: 4 }}>{title}</h3>
+                    <p style={{ fontSize: "0.82rem", lineHeight: 1.7, color: "#7a7268" }}>{desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
-        <div className="gold-divider" />
+        {/* Separator */}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
 
-        {/* ─── PUBLICATIONS ─── */}
-        <section style={{ padding: "4rem 0", background: "var(--bg-secondary)" }}>
-          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
-            <SectionHeader
-              badge="Peer Reviewed"
-              title="Our Research in Action"
-              subtitle="Notable publications spanning digital medicine, bioelectric applications, and sports science."
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {publications.map((pub, i) => (
-                <PubCard key={i} pub={pub} index={i} />
+        {/* ══════════════════ LIBRARY OF INNOVATION ══════════════════ */}
+        <section style={S.section()}>
+          <div style={S.container}>
+            <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", marginBottom: "3rem" }}>
+              <div>
+                <div style={S.label}>Research Verticals</div>
+                <h2 style={{ ...S.h2, marginBottom: 0 }}>Our Library of Innovation</h2>
+              </div>
+              <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)", marginTop: "1.5rem" }} />
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "rgba(255,255,255,0.06)", borderRadius: 16, overflow: "hidden" }}>
+              {verticals.map(({ title, desc }, i) => (
+                <motion.div
+                  key={title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: "-40px" }}
+                  custom={i % 3}
+                  style={{ background: "#0e0e0e", padding: "2rem 1.75rem" }}
+                  whileHover={{ background: "#141414" } as never}
+                >
+                  <div style={{ width: 24, height: 3, background: GOLD, borderRadius: 4, marginBottom: "1rem" }} />
+                  <h3 style={{ fontSize: "0.9rem", fontWeight: 700, color: "#f5f0e8", lineHeight: 1.4, marginBottom: "0.6rem" }}>{title}</h3>
+                  <p style={{ fontSize: "0.8rem", lineHeight: 1.75, color: "#7a7268" }}>{desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Separator */}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
+
+        {/* ══════════════════ ONGOING STUDIES ══════════════════ */}
+        <section style={S.section("#0b0b0b")}>
+          <div style={S.container}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "4rem", alignItems: "start" }}>
+              {/* Sticky left label */}
+              <div>
+                <div style={S.label}>Active Work</div>
+                <h2 style={S.h2}>Ongoing<br />Studies &amp;<br />Initiatives</h2>
+                <div style={S.divider} />
+                <p style={{ ...S.bodyText, maxWidth: "none", fontSize: "0.83rem" }}>
+                  A selection of our active research projects and clinical trials across
+                  various medical disciplines at Lehigh University.
+                </p>
+              </div>
+
+              {/* Right: Tag grid */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem" }}>
+                {studies.map((s, i) => (
+                  <motion.div
+                    key={s}
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, margin: "-20px" }}
+                    custom={i % 4}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      padding: "0.875rem 1.125rem",
+                      background: "#111",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                      borderRadius: 10,
+                      cursor: "default",
+                    }}
+                    whileHover={{ background: "#161616", borderColor: "rgba(201,168,76,0.25)" } as never}
+                  >
+                    <ChevronRight size={13} color={GOLD} style={{ flexShrink: 0 }} />
+                    <span style={{ fontSize: "0.8rem", color: "#c0b8aa", fontWeight: 500, lineHeight: 1.4 }}>{s}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Separator */}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
+
+        {/* ══════════════════ MISSION QUOTE ══════════════════ */}
+        <section style={{ ...S.section("#070707"), position: "relative", overflow: "hidden" }}>
+          {/* Ambient */}
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none",
+            background: "radial-gradient(ellipse 50% 70% at 10% 50%, rgba(201,168,76,0.05) 0%, transparent 65%)"
+          }} />
+          <div style={S.container}>
+            <div style={{ maxWidth: 760, margin: "0 auto" }}>
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
+                <div style={S.label}>The Mission</div>
+                <h2 style={S.h2}>Why Does It All Matter?</h2>
+                <div style={S.divider} />
+              </motion.div>
+
+              <motion.blockquote
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                custom={1}
+                style={{
+                  borderLeft: `3px solid ${GOLD}`,
+                  paddingLeft: "1.75rem",
+                  margin: 0,
+                }}
+              >
+                <p style={{ fontSize: "1.05rem", lineHeight: 1.85, color: "#a8a09a", marginBottom: "1rem" }}>
+                  &ldquo;The thesis of the Seshadri Lab is to engineer to improve patient outcomes…
+                  For me, it&apos;s solving the hardest problems in medicine through engineering.
+                  It&apos;s so grandkids can play with their grandparents, it&apos;s so sons and daughters
+                  can give their parents that long-lasting hug…&rdquo;
+                </p>
+                <p style={{ fontSize: "0.95rem", lineHeight: 1.75, color: GOLD, fontStyle: "italic", fontWeight: 600 }}>
+                  &ldquo;It&apos;s the incessant desire to create value through first principles
+                  grounded in data, and driven to solve the unmet clinical need.&rdquo;
+                </p>
+              </motion.blockquote>
+            </div>
+          </div>
+        </section>
+
+        {/* Separator */}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
+
+        {/* ══════════════════ PUBLICATIONS ══════════════════ */}
+        <section style={S.section("#0b0b0b")}>
+          <div style={S.container}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1rem" }}>
+              <div>
+                <div style={S.label}>Peer Reviewed</div>
+                <h2 style={{ ...S.h2, marginBottom: 0 }}>Selected Publications</h2>
+              </div>
+              <p style={{ fontSize: "0.83rem", color: "#6b6356", maxWidth: 320, textAlign: "right" as const, lineHeight: 1.6 }}>
+                Advancing scientific understanding across wearable bioelectronics,
+                digital medicine, and clinical engineering.
+              </p>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
+              {publications.map(({ journal, title }, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: "-30px" }}
+                  custom={i % 3}
+                  style={{
+                    ...S.card,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.875rem",
+                  }}
+                  whileHover={{ background: "#161616" } as never}
+                >
+                  {/* Journal badge */}
+                  <div style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 5,
+                    padding: "3px 10px",
+                    borderRadius: 99,
+                    border: `1px solid rgba(201,168,76,0.3)`,
+                    background: "rgba(201,168,76,0.06)",
+                    color: GOLD,
+                    fontSize: "0.65rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase" as const,
+                    width: "fit-content",
+                  }}>
+                    {journal}
+                  </div>
+                  {/* Title */}
+                  <p style={{ fontSize: "0.83rem", lineHeight: 1.65, color: "#d0c8bc", fontWeight: 500, flex: 1 }}>
+                    {title}
+                  </p>
+                  {/* Read more */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 5, color: GOLD, fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" as const, cursor: "pointer" }}>
+                    Read Paper <ExternalLink size={10} />
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
