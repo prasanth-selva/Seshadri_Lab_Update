@@ -42,11 +42,8 @@ export default function PublicationsSection() {
   return (
     <section
       id="publications"
-      style={{
-        background: "var(--bg-secondary)",
-        position: "relative",
-      }}
-      className="min-h-[85vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden"
+      className="flex flex-col justify-center overflow-hidden"
+      style={{ background: "var(--bg-secondary)", padding: "4rem 0", position: "relative" }}
     >
       <div
         style={{
@@ -81,7 +78,7 @@ export default function PublicationsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 max-w-6xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
         >
           {publications.map((pub) => (
             <motion.div

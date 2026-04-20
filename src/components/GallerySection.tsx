@@ -37,9 +37,10 @@ export default function GallerySection() {
   return (
     <section
       id="gallery"
-      className="min-h-[100vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden relative bg-black"
+      className="overflow-hidden relative bg-black"
+      style={{ padding: "4rem 0" }}
     >
-      <div className="section-container w-full max-w-[1920px] mx-auto">
+      <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-12">
         <motion.div
           className="section-header text-center mb-6 flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
@@ -47,8 +48,8 @@ export default function GallerySection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-2xl lg:text-4xl mb-3 font-bold tracking-tight">Life at the Lab</h2>
-          <p className="text-base max-w-3xl mx-auto leading-relaxed text-neutral-400">
+          <h2 className="text-heading mb-3" style={{ color: "var(--text-primary)" }}>Life at the Lab</h2>
+          <p className="text-body max-w-2xl mx-auto text-center">
             A glimpse into our collaborative ecosystem, experiments, and team milestones.
           </p>
         </motion.div>
@@ -58,7 +59,7 @@ export default function GallerySection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="w-full relative px-0 flex-1 flex flex-col justify-center min-h-[85vh]"
+          className="w-full relative px-0 flex-1 flex flex-col justify-center"
         >
           {mounted && (
             <Swiper
@@ -91,7 +92,7 @@ export default function GallerySection() {
                   key={index}
                   className="w-[95vw] md:w-[85vw] lg:w-[75vw] xl:w-[70vw]"
                 >
-                  <div className="w-full h-[100vh] flex items-center justify-center rounded-2xl overflow-hidden relative bg-black/20">
+                  <div className="w-full rounded-2xl overflow-hidden relative bg-black/20" style={{ height: '520px' }}>
                     <img
                       src={src}
                       alt={`Gallery view ${index + 1}`}

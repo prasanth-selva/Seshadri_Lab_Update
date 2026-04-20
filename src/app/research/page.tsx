@@ -2,17 +2,16 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PublicationsSection from "@/components/PublicationsSection";
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { MouseEvent, useRef } from "react";
-import { Activity, Globe, Cpu, Database, ChevronRight } from "lucide-react";
+import { Activity, Globe, Cpu, Database, ChevronRight, BookOpen, ExternalLink } from "lucide-react";
 
-/* ── shared tilt hook ── */
-function useTilt(factor = 10) {
+/* ─── shared tilt hook ─── */
+function useTilt(factor = 8) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rx = useSpring(useTransform(y, [-0.5, 0.5], [factor, -factor]), { stiffness: 200, damping: 20 });
-  const ry = useSpring(useTransform(x, [-0.5, 0.5], [-factor, factor]), { stiffness: 200, damping: 20 });
+  const rx = useSpring(useTransform(y, [-0.5, 0.5], [factor, -factor]), { stiffness: 200, damping: 22 });
+  const ry = useSpring(useTransform(x, [-0.5, 0.5], [-factor, factor]), { stiffness: 200, damping: 22 });
   const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     x.set((e.clientX - r.left) / r.width - 0.5);
@@ -27,7 +26,7 @@ const passionAreas = [
   { title: "Wearable Healthcare Technologies", description: "Developing devices for remote monitoring and personalized health management.", icon: Activity },
   { title: "Lean Engineering for Global Health", description: "Designing cost-effective solutions for resource-limited settings across the globe.", icon: Globe },
   { title: "Biomechanical Systems", description: "Investigating hardware-based medical solutions to address unmet clinical needs.", icon: Cpu },
-  { title: "Clinical Applications of Data Science", description: "Utilizing predictive modeling and machine learning to enhance diagnosis and treatment.", icon: Database },
+  { title: "Clinical Applications of Data Science", description: "Predictive modeling and machine learning to enhance diagnosis and treatment.", icon: Database },
 ];
 
 const innovationLibrary = [
@@ -58,37 +57,65 @@ const publications = [
   { title: "Absorbent and flexible conductive nanocomposites for bioelectric applications", journal: "IEEE TBME" },
   { title: "Accuracy of Apple Watch for detection of atrial fibrillation", journal: "Circulation" },
   { title: "Wearable sensor technology to predict core body temperature: A systematic review", journal: "Sensors" },
-  { title: "Return to sport following the COVID-19 lockdown and its impact on injury rates in the German Soccer League", journal: "Frontiers" },
+  { title: "Return to sport following COVID-19 lockdown and its impact on injury rates in German Soccer League", journal: "Frontiers" },
   { title: "Wearable biosensors in congenital heart disease: Needs to advance the field", journal: "JACC Advances" },
-  { title: "Validation of a hand-mounted wearable sensor for scratching movements in adults with atopic dermatitis", journal: "JAAD" },
+  { title: "Validation of hand-mounted wearable sensor for scratching movements in adults with atopic dermatitis", journal: "JAAD" },
   { title: "Accuracy of the Apple Watch 4 to Measure Heart Rate in Patients With Atrial Fibrillation", journal: "IEEE JTEHM" },
   { title: "Wearable technology in sports medicine to guide return-to-play following COVID-19 diagnosis", journal: "Digital Health" },
 ];
 
+/* shared container style */
+const container = "w-full max-w-[1280px] mx-auto px-6 lg:px-12";
+
+/* ─── Section Header ─── */
+function SectionHeader({ badge, title, subtitle }: { badge: string; title: string; subtitle?: string }) {
+  return (
+    <motion.div
+      className="mb-10"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6 }}
+    >
+      <span className="badge-gold mb-3 inline-flex">{badge}</span>
+      <h2 className="text-heading font-bold text-[var(--text-primary)] mb-2">{title}</h2>
+      <div className="h-0.5 w-12 bg-[var(--accent-gold)] rounded-full mb-3" />
+      {subtitle && (
+        <p className="text-body max-w-xl" style={{ color: "var(--text-secondary)" }}>
+          {subtitle}
+        </p>
+      )}
+    </motion.div>
+  );
+}
+
 /* ─── Passion Card with Tilt ─── */
 function PassionCard({ area, index }: { area: typeof passionAreas[0]; index: number }) {
-  const { rx, ry, onMouseMove, onMouseLeave } = useTilt(8);
+  const { rx, ry, onMouseMove, onMouseLeave } = useTilt(6);
   const Icon = area.icon;
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay: index * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{ perspective: 800 }}
     >
       <motion.div
         style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
-        className="glass-card p-6 sm:p-8 flex gap-5 items-start h-full cursor-default hover:border-[var(--accent-gold-dim)]"
+        className="glass-card p-5 flex gap-4 items-start h-full cursor-default"
       >
-        <div style={{ transform: "translateZ(20px)" }} className="flex-shrink-0 w-12 h-12 rounded-xl bg-[var(--accent-gold-dim)] flex items-center justify-center">
-          <Icon size={22} color="var(--accent-gold)" />
+        <div
+          style={{ transform: "translateZ(16px)", flexShrink: 0 }}
+          className="w-10 h-10 rounded-lg bg-[var(--accent-gold-dim)] flex items-center justify-center"
+        >
+          <Icon size={18} color="var(--accent-gold)" />
         </div>
-        <div style={{ transform: "translateZ(15px)" }}>
-          <h3 className="text-subheading font-bold mb-2 text-[var(--text-primary)]">{area.title}</h3>
-          <p className="text-body text-sm leading-relaxed">{area.description}</p>
+        <div style={{ transform: "translateZ(10px)" }}>
+          <h3 className="text-subheading font-bold mb-1 text-[var(--text-primary)]">{area.title}</h3>
+          <p className="text-body leading-relaxed">{area.description}</p>
         </div>
       </motion.div>
     </motion.div>
@@ -99,18 +126,17 @@ function PassionCard({ area, index }: { area: typeof passionAreas[0]; index: num
 function InnovationCard({ item, index }: { item: typeof innovationLibrary[0]; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -6, transition: { duration: 0.3, ease: "easeOut" } }}
-      className="relative bg-[var(--bg-card)] p-6 sm:p-8 rounded-2xl border border-[var(--border-card)] group overflow-hidden cursor-default"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ delay: index * 0.07, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -4, transition: { duration: 0.25 } }}
+      className="relative bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border-card)] group overflow-hidden cursor-default"
     >
-      {/* Hover glow corner */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle_at_top_right,rgba(201,168,76,0.08),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-      <div className="w-8 h-0.5 bg-[var(--accent-gold)] mb-4 rounded-full group-hover:w-14 transition-all duration-500" />
-      <h3 className="text-subheading font-bold text-[var(--text-primary)] mb-3 leading-snug">{item.title}</h3>
-      <p className="text-body text-sm leading-relaxed">{item.description}</p>
+      <div className="absolute top-0 right-0 w-24 h-24 bg-[radial-gradient(circle_at_top_right,rgba(201,168,76,0.07),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div className="w-6 h-0.5 bg-[var(--accent-gold)] mb-3 rounded-full group-hover:w-10 transition-all duration-400" />
+      <h3 className="text-subheading font-bold text-[var(--text-primary)] mb-2 leading-snug">{item.title}</h3>
+      <p className="text-body leading-relaxed text-sm">{item.description}</p>
     </motion.div>
   );
 }
@@ -119,15 +145,14 @@ function InnovationCard({ item, index }: { item: typeof innovationLibrary[0]; in
 function StudyTag({ study, index }: { study: string; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: -16 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ delay: (index % 6) * 0.07, duration: 0.45 }}
-      whileHover={{ x: 6, transition: { duration: 0.2 } }}
-      className="group flex items-center gap-3 p-4 sm:p-5 rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)] hover:border-[var(--accent-gold-dim)] hover:bg-[var(--bg-card-hover)] transition-all duration-300 cursor-default"
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ delay: (index % 6) * 0.06, duration: 0.4 }}
+      className="group flex items-center gap-2.5 p-3.5 rounded-lg border border-[var(--border-card)] bg-[var(--bg-card)] hover:border-[var(--accent-gold-dim)] hover:bg-[var(--bg-card-hover)] transition-all duration-300 cursor-default"
     >
-      <ChevronRight size={14} className="text-[var(--accent-gold)] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-      <span className="text-body text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors leading-snug">
+      <ChevronRight size={12} className="text-[var(--accent-gold)] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+      <span className="text-body font-medium text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors leading-snug" style={{ fontSize: "0.82rem" }}>
         {study}
       </span>
     </motion.div>
@@ -138,19 +163,19 @@ function StudyTag({ study, index }: { study: string; index: number }) {
 function PubCard({ pub, index }: { pub: typeof publications[0]; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ delay: (index % 3) * 0.08, duration: 0.45 }}
-      whileHover={{ y: -5, transition: { duration: 0.3 } }}
-      className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-card)] hover:border-[var(--accent-gold-dim)] transition-colors p-6 flex flex-col h-full gap-4"
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ delay: (index % 3) * 0.07, duration: 0.4 }}
+      whileHover={{ y: -4, transition: { duration: 0.25 } }}
+      className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-card)] hover:border-[var(--accent-gold-dim)] transition-colors p-5 flex flex-col h-full gap-3"
     >
       <span className="badge-gold w-fit">{pub.journal}</span>
-      <p className="text-body font-semibold text-[var(--text-primary)] leading-snug flex-1" style={{ fontSize: "clamp(0.85rem, 1.2vw, 0.95rem)" }}>
+      <p className="text-[var(--text-primary)] leading-snug flex-1 font-medium" style={{ fontSize: "0.82rem" }}>
         {pub.title}
       </p>
-      <span className="text-caption flex items-center gap-1 hover:text-[var(--accent-gold)] transition-colors cursor-pointer font-bold uppercase tracking-wider">
-        Read More ↗
+      <span className="flex items-center gap-1 font-bold uppercase tracking-wider transition-colors cursor-pointer" style={{ fontSize: "0.7rem", color: "var(--accent-gold)" }}>
+        Read More <ExternalLink size={10} />
       </span>
     </motion.div>
   );
@@ -160,119 +185,88 @@ function PubCard({ pub, index }: { pub: typeof publications[0]; index: number })
 export default function ResearchPage() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <>
       <Navbar />
-      <main
-        className="relative"
-        style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}
-      >
+      <main style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}>
+
         {/* ─── HERO ─── */}
         <section
           ref={heroRef}
-          className="relative overflow-hidden"
-          style={{ paddingTop: "clamp(6rem, 12vw, 10rem)", paddingBottom: "clamp(4rem, 8vw, 7rem)" }}
+          style={{ paddingTop: "7rem", paddingBottom: "5rem", overflow: "hidden", position: "relative" }}
         >
-          {/* Ambient BG */}
-          <div className="pointer-events-none absolute inset-0">
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: "clamp(400px, 60vw, 900px)",
-                height: "clamp(400px, 60vw, 900px)",
-                top: "-20%",
-                right: "-15%",
-                background: "radial-gradient(circle, rgba(201,168,76,0.1), transparent 65%)",
-                filter: "blur(80px)",
-              }}
-            />
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: "300px",
-                height: "300px",
-                bottom: "0",
-                left: "-10%",
-                background: "radial-gradient(circle, rgba(201,168,76,0.06), transparent 70%)",
-                filter: "blur(60px)",
-              }}
-            />
+          {/* Ambient glow */}
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
+            <div style={{
+              position: "absolute", width: "700px", height: "700px",
+              top: "-20%", right: "-10%",
+              background: "radial-gradient(circle, rgba(201,168,76,0.09), transparent 65%)",
+              filter: "blur(90px)", borderRadius: "50%",
+            }} />
           </div>
 
+
           <motion.div
-            style={{ y: heroY, opacity: heroOpacity }}
-            className="relative z-10 px-[var(--section-px)] max-w-[var(--container-max)] mx-auto"
+            style={{ y: heroY, opacity: heroOpacity, position: "relative", zIndex: 10, paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}
           >
-            <motion.p
-              className="badge-gold mb-6 w-fit"
-              initial={{ opacity: 0, y: 20 }}
+            <motion.span
+              className="badge-gold mb-5 inline-flex"
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
             >
               Seshadri Lab Research Hub
-            </motion.p>
+            </motion.span>
 
             <motion.h1
-              className="text-display font-bold mb-6 text-[var(--text-primary)] max-w-4xl"
+              className="text-display font-bold mb-5 max-w-3xl"
               style={{
-                background: "linear-gradient(160deg, #fff 30%, #c9a84c 100%)",
+                background: "linear-gradient(155deg, #f5f0e8 30%, #c9a84c 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                lineHeight: 1.1,
               }}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
             >
               Driving Innovation in<br />Healthcare Engineering
             </motion.h1>
 
             <motion.p
-              className="text-body max-w-2xl mb-4"
-              style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)" }}
+              className="text-body max-w-2xl mb-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25 }}
+              transition={{ duration: 0.7, delay: 0.22 }}
             >
-              In the Seshadri Lab, we are dedicated to advancing healthcare through wearable technologies,
-              data-driven solutions, and hardware-based systems. By integrating engineering principles with
-              clinical insights, our mission is to transform patient care and improve outcomes.
+              In the Seshadri Lab, we advance healthcare through wearable technologies, data-driven solutions,
+              and hardware-based systems — integrating engineering principles with clinical insights to transform
+              patient care.
             </motion.p>
 
             <motion.p
               className="font-semibold"
-              style={{ color: "var(--accent-gold)", fontSize: "clamp(0.9rem, 1.3vw, 1.05rem)" }}
-              initial={{ opacity: 0, y: 20 }}
+              style={{ color: "var(--accent-gold)", fontSize: "0.88rem" }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.7, delay: 0.34 }}
             >
-              We envision a future where technology bridges gaps in healthcare — enabling personalized,
-              accessible, and effective care for all.
+              We envision a future where technology bridges gaps in healthcare — enabling personalized, accessible, and effective care for all.
             </motion.p>
           </motion.div>
         </section>
 
-        {/* gold rule */}
         <div className="gold-divider" />
 
         {/* ─── PASSION AREAS ─── */}
-        <section style={{ padding: "var(--section-py) var(--section-px)" }}>
-          <div className="max-w-[var(--container-max)] mx-auto">
-            <motion.div
-              className="mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-            >
-              <p className="badge-gold mb-3 w-fit">Our Focus</p>
-              <h2 className="text-heading mb-3">What Are We Passionate About?</h2>
-              <div className="h-0.5 w-16 bg-[var(--accent-gold)] rounded-full" />
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+        <section style={{ padding: "4rem 0" }}>
+          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
+            <SectionHeader badge="Our Focus" title="What Are We Passionate About?" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {passionAreas.map((area, i) => (
                 <PassionCard key={area.title} area={area} index={i} />
               ))}
@@ -280,31 +274,17 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* gold rule */}
         <div className="gold-divider" />
 
         {/* ─── LIBRARY OF INNOVATION ─── */}
-        <section
-          style={{
-            padding: "var(--section-py) var(--section-px)",
-            background: "var(--bg-secondary)",
-          }}
-        >
-          <div className="max-w-[var(--container-max)] mx-auto">
-            <motion.div
-              className="mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-            >
-              <p className="badge-gold mb-3 w-fit">Research Verticals</p>
-              <h2 className="text-heading mb-3">Our Library of Innovation</h2>
-              <p className="text-body max-w-2xl" style={{ fontSize: "clamp(0.9rem, 1.3vw, 1.05rem)" }}>
-                Pioneering different verticals within bioengineering to deliver next-generation healthcare solutions.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <section style={{ padding: "4rem 0", background: "var(--bg-secondary)" }}>
+          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
+            <SectionHeader
+              badge="Research Verticals"
+              title="Our Library of Innovation"
+              subtitle="Pioneering different verticals within bioengineering to deliver next-generation healthcare solutions."
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {innovationLibrary.map((item, i) => (
                 <InnovationCard key={item.title} item={item} index={i} />
               ))}
@@ -312,27 +292,17 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* gold rule */}
         <div className="gold-divider" />
 
         {/* ─── ONGOING STUDIES ─── */}
-        <section style={{ padding: "var(--section-py) var(--section-px)" }}>
-          <div className="max-w-[var(--container-max)] mx-auto">
-            <motion.div
-              className="mb-12"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-            >
-              <p className="badge-gold mb-3 w-fit">Active Work</p>
-              <h2 className="text-heading mb-3">Ongoing Studies &amp; Initiatives</h2>
-              <div className="h-0.5 w-16 bg-[var(--accent-gold)] rounded-full mb-4" />
-              <p className="text-body max-w-2xl" style={{ fontSize: "clamp(0.9rem, 1.3vw, 1.05rem)" }}>
-                A selection of our active research projects and clinical trials across various medical disciplines.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <section style={{ padding: "4rem 0" }}>
+          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
+            <SectionHeader
+              badge="Active Work"
+              title="Ongoing Studies & Initiatives"
+              subtitle="A selection of our active research projects and clinical trials across various medical disciplines."
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {studies.map((study, i) => (
                 <StudyTag key={i} study={study} index={i} />
               ))}
@@ -340,62 +310,34 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* gold rule */}
         <div className="gold-divider" />
 
         {/* ─── WHY IT MATTERS ─── */}
-        <section
-          className="relative overflow-hidden"
-          style={{
-            padding: "var(--section-py) var(--section-px)",
-            background: "#050505",
-          }}
-        >
-          <div className="pointer-events-none absolute inset-0">
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: "500px",
-                height: "500px",
-                bottom: "-15%",
-                right: "-10%",
-                background: "radial-gradient(circle, rgba(201,168,76,0.08), transparent 70%)",
-                filter: "blur(80px)",
-              }}
-            />
+        <section style={{ padding: "4rem 0", background: "#060606", position: "relative", overflow: "hidden" }}>
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
+            <div style={{
+              position: "absolute", width: "400px", height: "400px",
+              bottom: "-10%", right: "-5%",
+              background: "radial-gradient(circle, rgba(201,168,76,0.07), transparent 70%)",
+              filter: "blur(70px)", borderRadius: "50%",
+            }} />
           </div>
-
-          <div className="max-w-[900px] mx-auto relative z-10">
-            <motion.div
-              className="mb-10"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-            >
-              <p className="badge-gold mb-3 w-fit">The Mission</p>
-              <h2 className="text-heading mb-3">Why Does It All Matter?</h2>
-              <div className="h-0.5 w-16 bg-[var(--accent-gold)] rounded-full" />
-            </motion.div>
-
+          <div className={`${container} relative z-10`} style={{ maxWidth: "800px" }}>
+            <SectionHeader badge="The Mission" title="Why Does It All Matter?" />
             <motion.blockquote
-              className="pl-6 border-l-4 border-[var(--accent-gold)]/40 space-y-5"
+              className="pl-5 space-y-4"
+              style={{ borderLeft: "3px solid rgba(201,168,76,0.4)" }}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: 0.2, duration: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.9 }}
             >
-              <p
-                className="text-[var(--text-secondary)] leading-relaxed"
-                style={{ fontSize: "clamp(1rem, 1.8vw, 1.4rem)" }}
-              >
+              <p style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.1rem)", lineHeight: 1.75, color: "var(--text-secondary)" }}>
                 &ldquo;The thesis of the Seshadri Lab is to engineer to improve patient outcomes… For me, it&apos;s
                 solving the hardest problems in medicine through engineering. It&apos;s so grandkids can play with
                 their grandparents, it&apos;s so sons and daughters can give their parents that long-lasting hug…&rdquo;
               </p>
-              <p
-                className="font-semibold italic"
-                style={{ color: "var(--accent-gold)", fontSize: "clamp(0.95rem, 1.5vw, 1.2rem)" }}
-              >
+              <p style={{ fontSize: "clamp(0.85rem, 1.2vw, 1rem)", lineHeight: 1.7, color: "var(--accent-gold)", fontStyle: "italic", fontWeight: 600 }}>
                 &ldquo;It&apos;s the incessant desire to create value through first principles grounded in data, and
                 driven to solve the unmet clinical need.&rdquo;
               </p>
@@ -403,37 +345,24 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* gold rule */}
         <div className="gold-divider" />
 
         {/* ─── PUBLICATIONS ─── */}
-        <section
-          style={{
-            padding: "var(--section-py) var(--section-px)",
-            background: "var(--bg-secondary)",
-          }}
-        >
-          <div className="max-w-[var(--container-max)] mx-auto">
-            <motion.div
-              className="mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-            >
-              <p className="badge-gold mb-3 w-fit">Peer Reviewed</p>
-              <h2 className="text-heading mb-3">Our Research in Action</h2>
-              <p className="text-body max-w-2xl" style={{ fontSize: "clamp(0.9rem, 1.3vw, 1.05rem)" }}>
-                Notable publications spanning digital medicine, bioelectric applications, and sports science.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <section style={{ padding: "4rem 0", background: "var(--bg-secondary)" }}>
+          <div style={{ paddingLeft: "clamp(1.5rem, 4vw, 3rem)", paddingRight: "clamp(1.5rem, 4vw, 3rem)", maxWidth: "1280px", margin: "0 auto", width: "100%" }}>
+            <SectionHeader
+              badge="Peer Reviewed"
+              title="Our Research in Action"
+              subtitle="Notable publications spanning digital medicine, bioelectric applications, and sports science."
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {publications.map((pub, i) => (
                 <PubCard key={i} pub={pub} index={i} />
               ))}
             </div>
           </div>
         </section>
+
       </main>
       <Footer />
     </>

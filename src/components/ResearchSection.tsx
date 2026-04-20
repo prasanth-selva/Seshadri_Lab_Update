@@ -66,11 +66,8 @@ export default function ResearchSection() {
     <section
       id="research"
       ref={ref}
-      style={{
-        background: "var(--bg-secondary)",
-        position: "relative",
-      }}
-      className="min-h-[100vh] flex flex-col justify-center pb-20 pt-20 overflow-hidden"
+      className="flex flex-col justify-center overflow-hidden"
+      style={{ background: "var(--bg-secondary)", padding: "4rem 0", position: "relative" }}
     >
       {/* Top fade separator */}
       <div
@@ -112,7 +109,7 @@ export default function ResearchSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
         >
           {researchAreas.map((area) => (
             <motion.div
