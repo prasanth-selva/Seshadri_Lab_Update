@@ -53,14 +53,16 @@ export default function GallerySection() {
             A glimpse into our collaborative ecosystem, experiments, and team milestones.
           </p>
         </motion.div>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="w-full relative px-0 flex-1 flex flex-col justify-center"
-        >
+      {/* Swiper container spans full width */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0.3 }}
+        className="w-full relative px-0 flex-1 flex flex-col justify-center"
+      >
           {mounted && (
             <Swiper
               effect={'coverflow'}
@@ -105,7 +107,6 @@ export default function GallerySection() {
             </Swiper>
           )}
         </motion.div>
-      </div>
 
       <style jsx global>{`
         .swiper-pagination-bullet {

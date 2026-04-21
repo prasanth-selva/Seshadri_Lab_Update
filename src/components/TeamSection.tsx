@@ -277,9 +277,10 @@ export default function TeamSection() {
           viewport={{ once: true }}
           custom={3}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.25rem" }}>
-            <div style={LABEL}>Collaborators &amp; Press</div>
-            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "1.25rem" }}>
+            <div style={{ flex: 1, maxWidth: "100px", height: 1, background: "rgba(255,255,255,0.06)" }} />
+            <div style={{ ...LABEL, marginBottom: 0 }}>Collaborators &amp; Press</div>
+            <div style={{ flex: 1, maxWidth: "100px", height: 1, background: "rgba(255,255,255,0.06)" }} />
           </div>
           <div style={{
             borderRadius: 14,
@@ -287,6 +288,7 @@ export default function TeamSection() {
             border: "1px solid rgba(255,255,255,0.07)",
             background: "#ffffff",
             maxWidth: 900,
+            margin: "0 auto",
           }}>
             <img
               src={PRESS_IMG}

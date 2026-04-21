@@ -110,7 +110,7 @@ export default function PublicationsSection() {
               </div>
 
               {/* Content */}
-              <div className="p-6 flex-1 flex flex-col">
+              <div className="p-6 flex-1 flex flex-col items-center text-center">
                 {/* Journal Badge */}
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--accent-gold-dim)] rounded-full text-[10px] font-bold text-[var(--accent-gold)] mb-3 w-fit uppercase tracking-wider">
                   <BookOpen size={12} />
@@ -125,8 +125,8 @@ export default function PublicationsSection() {
                   {pub.description}
                 </p>
 
-                <div className="mt-4 flex items-center gap-2 text-[var(--accent-gold)] text-sm font-bold uppercase tracking-wide group hover:translate-x-2 transition-transform">
-                  Read Publication <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
+                <div className="mt-4 flex items-center gap-2 text-[var(--accent-gold)] text-sm font-bold uppercase tracking-wide group hover:-translate-y-1 transition-transform">
+                  Read Publication <ExternalLink size={16} className="group-hover:scale-110 transition-transform" />
                 </div>
               </div>
             </motion.div>
