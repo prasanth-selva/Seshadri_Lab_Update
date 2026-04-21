@@ -136,11 +136,11 @@ export default function ResearchPage() {
           }} />
 
           <div style={S.container}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "3rem", alignItems: "end" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem", alignItems: "center", textAlign: "center" }}>
 
-              {/* Left — Text */}
-              <div>
-                <motion.div style={S.label} initial="hidden" animate="show" variants={fadeUp} custom={0}>
+              {/* Text */}
+              <div style={{ maxWidth: 900 }}>
+                <motion.div style={{ ...S.label, justifyContent: "center" }} initial="hidden" animate="show" variants={fadeUp} custom={0}>
                   Research Hub
                 </motion.div>
 
@@ -150,11 +150,11 @@ export default function ResearchPage() {
                   animate="show"
                   custom={1}
                   style={{
-                    fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+                    fontSize: "clamp(2.5rem, 4vw, 4rem)",
                     fontWeight: 800,
                     lineHeight: 1.1,
                     letterSpacing: "-0.03em",
-                    marginBottom: "1.25rem",
+                    marginBottom: "1.5rem",
                     color: "#f5f0e8",
                   }}
                 >
@@ -167,7 +167,7 @@ export default function ResearchPage() {
                   initial="hidden"
                   animate="show"
                   custom={2}
-                  style={{ ...S.bodyText, marginBottom: "1rem" }}
+                  style={{ ...S.bodyText, marginBottom: "1.5rem", fontSize: "1.1rem" }}
                 >
                   In the Seshadri Lab, we advance healthcare through wearable technologies,
                   data-driven solutions, and hardware-based systems — integrating engineering
@@ -179,14 +179,14 @@ export default function ResearchPage() {
                   initial="hidden"
                   animate="show"
                   custom={3}
-                  style={{ fontSize: "0.88rem", lineHeight: 1.7, color: GOLD, fontStyle: "italic" }}
+                  style={{ fontSize: "1rem", lineHeight: 1.7, color: GOLD, fontStyle: "italic" }}
                 >
                   "We envision a future where technology bridges gaps in healthcare —
                   enabling personalized, accessible, and effective care for all."
                 </motion.p>
               </div>
 
-              {/* Right — Stats block */}
+              {/* Stats block - spanning horizontally */}
               <motion.div
                 variants={fadeUp}
                 initial="hidden"
@@ -194,10 +194,9 @@ export default function ResearchPage() {
                 custom={2}
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "1rem",
-                  flexShrink: 0,
-                  width: 320,
+                  gridTemplateColumns: "repeat(4, 1fr)",
+                  gap: "1.5rem",
+                  width: "100%",
                 }}
               >
                 {stats.map(({ n, label, icon: Icon }) => (
@@ -207,15 +206,19 @@ export default function ResearchPage() {
                       ...S.card,
                       display: "flex",
                       flexDirection: "column",
-                      gap: 8,
-                      padding: "1.25rem",
+                      alignItems: "center",
+                      textAlign: "center",
+                      gap: 12,
+                      padding: "2rem",
                     }}
                   >
-                    <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(201,168,76,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Icon size={16} color={GOLD} />
+                    <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(201,168,76,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Icon size={20} color={GOLD} />
                     </div>
-                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#f5f0e8", lineHeight: 1 }}>{n}</div>
-                    <div style={{ fontSize: "0.72rem", color: "#6b6356", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</div>
+                    <div>
+                      <div style={{ fontSize: "2rem", fontWeight: 800, color: "#f5f0e8", lineHeight: 1 }}>{n}</div>
+                      <div style={{ fontSize: "0.75rem", color: "#6b6356", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.07em", marginTop: "0.5rem" }}>{label}</div>
+                    </div>
                   </div>
                 ))}
               </motion.div>
@@ -230,13 +233,11 @@ export default function ResearchPage() {
         <section style={S.section("#0b0b0b")}>
           <div style={S.container}>
             {/* Section header */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", alignItems: "end", marginBottom: "3rem" }}>
-              <div>
-                <div style={S.label}>Our Focus</div>
-                <h2 style={S.h2}>What Are We<br />Passionate About?</h2>
-                <div style={{ ...S.divider, marginBottom: 0 }} />
-              </div>
-              <p style={{ ...S.bodyText }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center", textAlign: "center", marginBottom: "3rem", maxWidth: 800, margin: "0 auto 3rem auto" }}>
+              <div style={{ ...S.label, justifyContent: "center" }}>Our Focus</div>
+              <h2 style={{ ...S.h2, fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}>What Are We Passionate About?</h2>
+              <div style={{ ...S.divider, marginBottom: "1rem" }} />
+              <p style={{ ...S.bodyText, fontSize: "1.05rem" }}>
                 Our interdisciplinary work sits at the crossroads of engineering,
                 medicine, and data science — focused on problems that matter most
                 for improving human health outcomes.
