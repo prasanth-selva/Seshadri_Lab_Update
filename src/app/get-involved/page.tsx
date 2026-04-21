@@ -432,7 +432,7 @@ export default function GetInvolvedPage() {
         </section>
 
         {/* ══════════════════ DONOR CTA ══════════════════ */}
-        <section style={{ position: "relative", minHeight: "50vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: "6rem 0" }}>
+        <section style={{ position: "relative", minHeight: "75vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: "10rem 0" }}>
           <div 
             style={{
               position: "absolute", inset: 0, zIndex: 0,
