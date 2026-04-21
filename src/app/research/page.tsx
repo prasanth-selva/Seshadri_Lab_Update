@@ -136,12 +136,6 @@ export default function ResearchPage() {
 
         {/* ══════════════════ HERO ══════════════════ */}
         <section style={{ ...S.section(), minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "8rem", paddingBottom: "4rem", position: "relative", overflow: "hidden" }}>
-          {/* Subtle ambient glow — far right */}
-          <div style={{
-            position: "absolute", inset: 0, pointerEvents: "none",
-            background: "radial-gradient(ellipse 60% 60% at 85% 30%, rgba(201,168,76,0.07) 0%, transparent 70%)"
-          }} />
-
           <div style={S.container}>
             <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem", alignItems: "center", textAlign: "center" }}>
 
@@ -165,8 +159,8 @@ export default function ResearchPage() {
                     color: "#f5f0e8",
                   }}
                 >
-                  Driving Innovation<br />
-                  <span style={{ color: GOLD }}>in Healthcare Engineering</span>
+                  Advancing Clinical<br />
+                  <span style={{ color: GOLD }}>Healthcare Engineering</span>
                 </motion.h1>
 
                 <motion.p
@@ -242,7 +236,7 @@ export default function ResearchPage() {
             {/* Section header */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center", textAlign: "center", marginBottom: "3rem", maxWidth: 800, margin: "0 auto 3rem auto" }}>
               <div style={{ ...S.label, justifyContent: "center" }}>Our Focus</div>
-              <h2 style={{ ...S.h2, fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}>What Are We Passionate About?</h2>
+              <h2 style={{ ...S.h2, fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}>Clinical & Engineering Focus</h2>
               <div style={{ ...S.divider, marginBottom: "1rem" }} />
               <p style={{ ...S.bodyText, fontSize: "1.05rem" }}>
                 Our interdisciplinary work sits at the crossroads of engineering,
@@ -292,8 +286,7 @@ export default function ResearchPage() {
           <div style={S.container}>
             <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", marginBottom: "3rem" }}>
               <div>
-                <div style={S.label}>Research Verticals</div>
-                <h2 style={{ ...S.h2, marginBottom: 0 }}>Our Library of Innovation</h2>
+                <h2 style={{ ...S.h2, marginBottom: 0 }}>Core Research Areas</h2>
               </div>
               <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)", marginTop: "1.5rem" }} />
             </div>
@@ -373,11 +366,7 @@ export default function ResearchPage() {
 
         {/* ══════════════════ MISSION QUOTE ══════════════════ */}
         <section style={{ ...S.section("#070707"), position: "relative", overflow: "hidden" }}>
-          {/* Ambient */}
-          <div style={{
-            position: "absolute", inset: 0, pointerEvents: "none",
-            background: "radial-gradient(ellipse 50% 70% at 10% 50%, rgba(201,168,76,0.05) 0%, transparent 65%)"
-          }} />
+
           <div style={S.container}>
             <div style={{ maxWidth: 760, margin: "0 auto" }}>
               <motion.div

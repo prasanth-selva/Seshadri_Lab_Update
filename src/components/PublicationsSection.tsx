@@ -87,7 +87,7 @@ export default function PublicationsSection() {
               className="glass-card flex flex-col cursor-pointer hover:border-[var(--accent-gold)] flex-1 max-w-[500px]"
             >
               {/* Journal Cover */}
-              <div className="p-8 lg:p-12 w-full text-center bg-gradient-to-br from-[rgba(201,168,76,0.05)] to-[rgba(201,168,76,0.02)]">
+              <div className="p-8 lg:p-12 w-full text-center bg-[#070707]">
                 <img
                   src={pub.image}
                   alt={pub.journal}

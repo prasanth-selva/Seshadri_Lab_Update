@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { SplineScene } from "@/components/ui/splite";
-import { Spotlight } from "@/components/ui/spotlight";
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
@@ -25,10 +24,6 @@ export default function HeroSection() {
       id="hero"
       className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden bg-black"
     >
-      <Spotlight
-        className="-top-40 left-0 md:left-60 md:-top-20"
-        fill="rgba(201, 168, 76, 0.5)"
-      />
 
       <motion.div 
         style={{ y: yText, opacity: opacityHero, scale: scaleHero }}
@@ -44,10 +39,10 @@ export default function HeroSection() {
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-display font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-500 mb-2 tracking-tight">
+            <h1 className="text-display font-bold text-[#f5f0e8] mb-2 tracking-tight">
               Seshadri Lab
             </h1>
-            <p className="text-gold-gradient font-medium tracking-wide mb-6 uppercase" style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.1rem)', letterSpacing: '0.12em' }}>
+            <p className="text-[var(--accent-gold)] font-bold tracking-wide mb-6 uppercase" style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.1rem)', letterSpacing: '0.12em' }}>
               Lehigh University
             </p>
           </motion.div>
@@ -58,7 +53,7 @@ export default function HeroSection() {
             transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-body max-w-lg mb-8"
           >
-            Pioneering the future of wearable bioelectronics, digital therapeutics, and continuous human performance monitoring.
+            Engineering clinical solutions in wearable bioelectronics, digital therapeutics, and continuous human performance monitoring.
           </motion.p>
 
           <motion.div
@@ -85,8 +80,6 @@ export default function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Down Gradient to blend into next section smoothly */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#080808] to-transparent z-20 pointer-events-none" />
 
       {/* Scroll Indicator */}
       <motion.div

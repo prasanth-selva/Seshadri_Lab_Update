@@ -66,21 +66,9 @@ export default function ResearchSection() {
     <section
       id="research"
       ref={ref}
-      className="flex flex-col justify-center overflow-hidden"
-      style={{ background: "var(--bg-secondary)", padding: "4rem 0", position: "relative" }}
+      className="flex flex-col justify-center items-center w-full overflow-hidden"
+      style={{ background: "#0b0b0b", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
     >
-      {/* Top fade separator */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "120px",
-          background: "linear-gradient(180deg, var(--bg-primary), transparent)",
-          pointerEvents: "none",
-        }}
-      />
 
       <div className="section-container w-full max-w-[1600px] mx-auto px-6 lg:px-12">
         <motion.div
@@ -92,9 +80,7 @@ export default function ResearchSection() {
         >
           <h2 className="text-heading mb-4">Research Areas</h2>
           <p className="text-body max-w-3xl mx-auto text-center mb-6">
-            Our interdisciplinary team explores the convergence of materials
-            science, electrical engineering, and biomedical innovation to push
-            the boundaries of digital health.
+            We focus on materials science, electrical engineering, and biomedical design to build digital health solutions.
           </p>
           <a
             href="/research"
@@ -143,19 +129,6 @@ export default function ResearchSection() {
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.transform = "scale(1)")
                   }
-                />
-                {/* Gradient overlay on image */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: "60%",
-                    background:
-                      "linear-gradient(transparent, var(--bg-card))",
-                    pointerEvents: "none",
-                  }}
                 />
               </div>
 
