@@ -1,15 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper/modules';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import Lenis from 'lenis'; // Note: '@studio-freight/lenis' is deprecated and now 'lenis'
+import { ZoomParallax } from "@/components/ui/zoom-parallax";
 
 export const galleryImages = [
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/e46e740a-8e79-4802-9df5-5229af14c458/D9E9551D-6C17-44B5-81C5-456DF3B34534D2C703AF-0DC3-45E2-838E-C2C741DC9BD7.jpg",
@@ -32,112 +26,52 @@ export default function GallerySection() {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Initialize Lenis for smooth parallax scrolling
+    // Note: since we are applying this to the Home page, this will enable 
+    // smooth scrolling globally for the page as long as it's mounted.
+    const lenis = new Lenis()
+    let rafId: number;
+    
+    function raf(time: number) {
+        lenis.raf(time)
+        rafId = requestAnimationFrame(raf)
+    }
+    rafId = requestAnimationFrame(raf)
+    
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    }
   }, []);
 
+  // Format array for ZoomParallax (grab first 7, assign alt tags)
+  const imagesForParallax = galleryImages.slice(0, 7).map((src, idx) => ({
+    src,
+    alt: `Seshadri Lab Gallery Image ${idx + 1}`
+  }));
+
+  if (!mounted) return <section id="gallery" style={{ minHeight: "100vh", background: "#080808" }} />;
+
   return (
-    <section
-      id="gallery"
-      className="overflow-hidden relative bg-black flex flex-col justify-center items-center w-full"
-      style={{ padding: "6rem 0", minHeight: "100vh" }}
-    >
-      <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section id="gallery" className="relative w-full bg-[#080808] flex flex-col items-center">
+      <div className="relative flex flex-col items-center justify-center pt-32 pb-8 z-10 w-full max-w-[1440px] px-10">
         <motion.div
-          className="section-header text-center mb-6 flex flex-col items-center"
+          className="section-header text-center flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-heading mb-3" style={{ color: "var(--text-primary)" }}>Life at the Lab</h2>
-          <p className="text-body max-w-2xl mx-auto text-center">
-            A glimpse into our collaborative ecosystem, experiments, and team milestones.
+          <div style={{ height: 3, width: 48, background: "#c9a84c", borderRadius: 2, marginBottom: "1.5rem" }} />
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: "#f5f0e8", letterSpacing: "-0.02em" }}>Life at the Lab</h2>
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "#a69e8e" }}>
+            A glimpse into our collaborative ecosystem, experiments, and team milestones in smooth parallax.
           </p>
         </motion.div>
       </div>
 
-      {/* Swiper container spans full width */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.3 }}
-        className="w-full relative px-0 flex-1 flex flex-col justify-center"
-      >
-          {mounted && (
-            <Swiper
-              effect={'coverflow'}
-              grabCursor={true}
-              centeredSlides={true}
-              slidesPerView={'auto'}
-              initialSlide={2}
-              coverflowEffect={{
-                rotate: 0,
-                stretch: 0,
-                depth: 100,
-                modifier: 2,
-                slideShadows: true,
-              }}
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-                dynamicBullets: true,
-              }}
-              navigation={true}
-              modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
-              className="mySwiper w-full h-full pb-12"
-            >
-              {galleryImages.map((src, index) => (
-                <SwiperSlide
-                  key={index}
-                  className="w-[90vw] md:w-[75vw] max-w-[900px]"
-                >
-                  <div className="w-full rounded-2xl overflow-hidden relative bg-[#050505] border border-[rgba(255,255,255,0.03)] shadow-2xl flex items-center justify-center" style={{ aspectRatio: '16/9' }}>
-                    <img
-                      src={src}
-                      alt={`Gallery view ${index + 1}`}
-                      className="w-full h-full object-contain"
-                      loading={index < 3 ? "eager" : "lazy"}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )}
-        </motion.div>
-
-      <style jsx global>{`
-        .swiper-pagination-bullet {
-          background-color: var(--text-muted) !important;
-          opacity: 0.5;
-        }
-        .swiper-pagination-bullet-active {
-          background-color: var(--accent-gold) !important;
-          opacity: 1;
-        }
-        .swiper-button-next, .swiper-button-prev {
-          color: var(--accent-gold) !important;
-          background: rgba(0,0,0,0.5);
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-        }
-        .swiper-button-next::after, .swiper-button-prev::after {
-          font-size: 20px;
-          text-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-        .swiper-slide {
-          transition: filter 0.3s, opacity 0.3s;
-          filter: brightness(0.3);
-          opacity: 0.5;
-        }
-        .swiper-slide-active {
-          filter: brightness(1);
-          opacity: 1;
-        }
-      `}</style>
+      <ZoomParallax images={imagesForParallax} />
     </section>
   );
 }
