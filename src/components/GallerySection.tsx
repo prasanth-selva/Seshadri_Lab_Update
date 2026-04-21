@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 
 export const galleryImages = [
-  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/e46e740a-8e79-4802-9df5-5229af14c458/D9E9551D-6C17-44B5-81C5-456DF3B34534D2C703AF-0DC3-45E2-838E-C2C741DC9BD7.jpg",
-  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/c0f420c5-67fc-48ac-978f-43fbbe2fd76f/BEDF1DA6-5240-483F-844F-B7442A7A91D803FC0B36-0AF9-4CE2-BF3E-A9118202D179.jpg",
+  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/6664fc2c-6de7-4c13-8242-c9d035fdafba/626059CB-4F66-497F-881F-3E594040DCE4f890d0b7-2460-4e1a-a449-5d2a0ac4ad6a.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/a1f8a55c-4630-4aae-a080-bd0e91b4f700/53B2BEB4-CC0C-4FA6-9CFE-9FBD193459E55429A2BD-7FBA-4D7F-833A-6AF625129B9C.jpg",
+  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/c0f420c5-67fc-48ac-978f-43fbbe2fd76f/BEDF1DA6-5240-483F-844F-B7442A7A91D803FC0B36-0AF9-4CE2-BF3E-A9118202D179.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/f3fed177-9e6b-4667-b29f-bb5fff20a6e0/A1674F3A-EFB1-440C-8A4A-6FE0EEE2A074.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/06125a4f-d2d3-4347-8214-472aa7e80d90/1AF2E98E-1B95-4CAB-9378-08C7F9D65EC0IMG_5469.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/e0d00388-67f1-4f72-8ff5-a17fdd1c8b01/B7E76981-6A13-4F56-8917-BECF24EEADB12FA1CA64-F8F6-4BF4-91CB-0CB28E695C9F.jpg",
-  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/6664fc2c-6de7-4c13-8242-c9d035fdafba/626059CB-4F66-497F-881F-3E594040DCE4f890d0b7-2460-4e1a-a449-5d2a0ac4ad6a.jpg",
+  "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/e46e740a-8e79-4802-9df5-5229af14c458/D9E9551D-6C17-44B5-81C5-456DF3B34534D2C703AF-0DC3-45E2-838E-C2C741DC9BD7.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/a1795c1f-2cbd-4102-abd5-1ab7a779cadb/D55B3639-3A43-4086-9410-E5E5E2F17903.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/e11b50a5-10af-4bc6-b01f-21c1e48c874b/E8B8AB6C-EA0A-48E4-A306-D14DECF17784IMG_0643.jpg",
   "https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/dd7a4cc2-217d-4ea2-941a-8a7e481a7e50/1415B1A4-BEFB-43C2-BD6E-8D7868556B88.jpg",
@@ -60,16 +60,16 @@ export default function GallerySection() {
         <div className="mb-16 text-center">
           <h3 style={{ color: "#f5f0e8", fontSize: "1.4rem", fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase" }}>More from the Lab</h3>
         </div>
-        
+
         <div className="gallery-marquee-wrapper">
           <div className="gallery-marquee-track">
             {/* Render array three times for seamless looping */}
             {[...galleryImages, ...galleryImages, ...galleryImages].map((src, i) => (
               <div key={`gm-${i}`} className="gallery-marquee-item">
-                <img 
-                  src={src} 
-                  alt="Seshadri Lab Community" 
-                  className="w-full h-full object-cover rounded-md border border-[#222] grayscale hover:grayscale-0 transition-all duration-500" 
+                <img
+                  src={src}
+                  alt="Seshadri Lab Community"
+                  className="w-full h-full object-cover rounded-md border border-[#222] grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </div>
             ))}
