@@ -46,13 +46,9 @@ export default function TeamSection() {
   return (
     <section
       id="team"
-      style={{ background: "#080808", padding: "5rem 0", position: "relative", overflow: "hidden" }}
+      className="flex flex-col items-center justify-center w-full overflow-hidden"
+      style={{ background: "#080808", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
     >
-      {/* Subtle ambient glow */}
-      <div style={{
-        position: "absolute", inset: 0, pointerEvents: "none",
-        background: "radial-gradient(ellipse 55% 70% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 65%)"
-      }} />
 
       <div style={{ ...CONTAINER, position: "relative", zIndex: 1 }}>
 

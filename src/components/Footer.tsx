@@ -27,8 +27,7 @@ export default function Footer() {
           left: 0,
           right: 0,
           height: "1px",
-          background:
-            "linear-gradient(90deg, transparent, var(--accent-gold-dim), transparent)",
+          background: "var(--border-card)",
         }}
       />
 
