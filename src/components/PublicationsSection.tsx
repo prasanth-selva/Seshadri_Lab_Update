@@ -42,7 +42,7 @@ export default function PublicationsSection() {
   return (
     <section
       id="publications"
-      className="flex flex-col justify-center overflow-hidden"
+      className="flex flex-col justify-center items-center w-full overflow-hidden"
       style={{ background: "var(--bg-secondary)", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
     >
       <div
@@ -78,16 +78,16 @@ export default function PublicationsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          className="flex flex-col md:flex-row justify-center items-stretch gap-6 max-w-5xl mx-auto w-full"
         >
           {publications.map((pub) => (
             <motion.div
               key={pub.title}
               variants={cardVariants}
-              className="glass-card flex flex-col cursor-pointer hover:border-[var(--accent-gold)]"
+              className="glass-card flex flex-col cursor-pointer hover:border-[var(--accent-gold)] flex-1 max-w-[500px]"
             >
               {/* Journal Cover */}
-              <div className="p-8 lg:p-12 flex justify-center bg-gradient-to-br from-[rgba(201,168,76,0.05)] to-[rgba(201,168,76,0.02)]">
+              <div className="p-8 lg:p-12 w-full text-center bg-gradient-to-br from-[rgba(201,168,76,0.05)] to-[rgba(201,168,76,0.02)]">
                 <img
                   src={pub.image}
                   alt={pub.journal}
@@ -95,7 +95,11 @@ export default function PublicationsSection() {
                   style={{
                     height: "360px",
                     width: "auto",
+                    maxWidth: "100%",
                     objectFit: "contain",
+                    objectPosition: "center",
+                    margin: "0 auto",
+                    display: "block",
                     filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))",
                     transition:
                       "transform 0.6s cubic-bezier(0.16,1,0.3,1)",

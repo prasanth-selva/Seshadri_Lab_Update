@@ -31,6 +31,7 @@ const S = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
     paddingTop: "6rem",
     paddingBottom: "4rem",
     position: "relative",
