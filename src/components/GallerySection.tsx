@@ -56,9 +56,9 @@ export default function GallerySection() {
       <ZoomParallax images={imagesForParallax} />
 
       {/* INFINITE MARQUEE FOR ALL PHOTOS */}
-      <div className="w-full relative py-16 bg-[#080808] overflow-hidden border-t border-[#1a1a1a]">
-        <div className="mb-10 text-center">
-          <h3 style={{ color: "#f5f0e8", fontSize: "1.2rem", fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>More from the Lab</h3>
+      <div className="w-full relative pt-32 pb-24 bg-[#080808] overflow-hidden mt-20 border-t border-[#1a1a1a]">
+        <div className="mb-16 text-center">
+          <h3 style={{ color: "#f5f0e8", fontSize: "1.4rem", fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase" }}>More from the Lab</h3>
         </div>
         
         <div className="gallery-marquee-wrapper">
@@ -103,17 +103,17 @@ export default function GallerySection() {
           }
           .gallery-marquee-track {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
             width: max-content;
-            padding: 0 1rem;
-            animation: galleryMarqueeLeft 60s linear infinite;
+            padding: 0 1.5rem;
+            animation: galleryMarqueeLeft 75s linear infinite;
           }
           .gallery-marquee-track:hover {
             animation-play-state: paused;
           }
           .gallery-marquee-item {
-            width: 320px;
-            height: 240px;
+            width: 500px;
+            height: 360px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
