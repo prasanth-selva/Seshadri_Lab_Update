@@ -1,200 +1,73 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
-
-const quickLinks = [
-  { label: "Research", href: "#research" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Publications", href: "#publications" },
-  { label: "Team", href: "#team" },
-];
+import { MapPin, Mail, Phone, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer
-      id="contact"
-      style={{
-        background: "var(--bg-secondary)",
-        borderTop: "1px solid var(--border-card)",
-        position: "relative",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "1px",
-          background: "var(--border-card)",
-        }}
-      />
-
-      <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          padding: "4rem 1.5rem 2rem",
-        }}
-      >
-        {/* Main Footer Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "3rem",
-            marginBottom: "3rem",
-          }}
-        >
-          {/* Brand Column */}
-          <div>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/df927f55-54c4-4437-b477-4c874ef9932d/Main+Logo.png?format=300w"
-              alt="Seshadri Lab"
-              style={{ height: "50px", width: "auto", marginBottom: "1.25rem" }}
+    <footer style={{ background: "#080808", borderTop: "1px solid #222222", padding: "4rem 0 2rem 0", color: "#a69e8e", fontSize: "0.9rem" }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 2.5rem" }}>
+        
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "4rem", marginBottom: "4rem" }}>
+          
+          {/* Column 1: Brand */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <img 
+              src="https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/a3268a0d-8b8c-4f48-925c-44b01408e21e/Main+Logo.png" 
+              alt="Seshadri Lab Logo" 
+              style={{ height: 60, objectFit: "contain", objectPosition: "left", filter: "brightness(0) invert(1)" }} 
             />
-            <p
-              style={{
-                fontSize: "0.9rem",
-                lineHeight: 1.7,
-                color: "var(--text-secondary)",
-                maxWidth: "300px",
-              }}
-            >
-              Advancing wearable bioelectronics and digital health technologies at
-              Lehigh University to improve lives through innovation.
-            </p>
+            <p style={{ fontWeight: 600, color: "#f5f0e8" }}>Innovating to Improve Patient Outcomes</p>
+            <p>© {new Date().getFullYear()} The Seshadri Lab, Lehigh University</p>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4
-              style={{
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                color: "var(--accent-gold)",
-                marginBottom: "1.25rem",
-              }}
-            >
-              Quick Links
-            </h4>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.75rem",
-              }}
-            >
-              {quickLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "var(--text-secondary)",
-                    transition: "color 0.3s ease",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.4rem",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--accent-gold)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--text-secondary)")
-                  }
-                >
-                  {link.label}
-                  <ArrowUpRight size={12} />
-                </a>
-              ))}
+          {/* Column 2: Quick Links */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <h4 style={{ color: "#f5f0e8", fontWeight: 700, marginBottom: "0.5rem" }}>Quick Links</h4>
+            <Link href="/#hero" style={{ color: "#a69e8e", textDecoration: "none", transition: "color 0.2s" }} className="hover:text-[#c9a84c]">Home</Link>
+            <Link href="/research" style={{ color: "#a69e8e", textDecoration: "none", transition: "color 0.2s" }} className="hover:text-[#c9a84c]">Research</Link>
+            <Link href="/team" style={{ color: "#a69e8e", textDecoration: "none", transition: "color 0.2s" }} className="hover:text-[#c9a84c]">Team</Link>
+            <Link href="/values" style={{ color: "#a69e8e", textDecoration: "none", transition: "color 0.2s" }} className="hover:text-[#c9a84c]">Values</Link>
+            <Link href="/get-involved" style={{ color: "#a69e8e", textDecoration: "none", transition: "color 0.2s" }} className="hover:text-[#c9a84c]">Get Involved</Link>
+          </div>
+
+          {/* Column 3: Contact & Affiliates */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <h4 style={{ color: "#f5f0e8", fontWeight: 700, marginBottom: "0.25rem" }}>Contact & Affiliates</h4>
+            
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
+              <MapPin size={18} color="#c9a84c" style={{ marginTop: 2, flexShrink: 0 }} />
+              <span>Iacocca Hall, 111 Research Drive<br/>Room C343, Bethlehem, PA 18015</span>
+            </div>
+            
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <Mail size={18} color="#c9a84c" style={{ flexShrink: 0 }} />
+              <a href="mailto:dhs223@lehigh.edu" style={{ color: "#a69e8e", textDecoration: "none", transition: "color 0.2s" }} className="hover:text-white">dhs223@lehigh.edu</a>
+            </div>
+            
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <Phone size={18} color="#c9a84c" style={{ flexShrink: 0 }} />
+              <span>(610) 758-4790</span>
+            </div>
+
+            <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <a href="https://www1.lehigh.edu/admissions" target="_blank" rel="noreferrer" style={{ color: "#c9a84c", display: "flex", alignItems: "center", gap: 6, textDecoration: "none", fontSize: "0.85rem", transition: "color 0.2s" }} className="hover:text-white">
+                Undergraduate Admissions <ExternalLink size={14} />
+              </a>
+              <a href="https://www2.lehigh.edu/academics/graduate-studies/admissions" target="_blank" rel="noreferrer" style={{ color: "#c9a84c", display: "flex", alignItems: "center", gap: 6, textDecoration: "none", fontSize: "0.85rem", transition: "color 0.2s" }} className="hover:text-white">
+                Graduate School <ExternalLink size={14} />
+              </a>
+              <a href="https://engineering.lehigh.edu/bioe" target="_blank" rel="noreferrer" style={{ color: "#c9a84c", display: "flex", alignItems: "center", gap: 6, textDecoration: "none", fontSize: "0.85rem", transition: "color 0.2s" }} className="hover:text-white">
+                Lehigh Bioengineering <ExternalLink size={14} />
+              </a>
             </div>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h4
-              style={{
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                color: "var(--accent-gold)",
-                marginBottom: "1.25rem",
-              }}
-            >
-              Contact
-            </h4>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.75rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: "0.6rem",
-                  fontSize: "0.9rem",
-                  color: "var(--text-secondary)",
-                }}
-              >
-                <MapPin size={16} style={{ marginTop: "3px", flexShrink: 0, color: "var(--accent-gold)" }} />
-                <span>
-                  Lehigh University
-                  <br />
-                  Bethlehem, PA 18015
-                </span>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.6rem",
-                  fontSize: "0.9rem",
-                  color: "var(--text-secondary)",
-                }}
-              >
-                <Mail size={16} style={{ color: "var(--accent-gold)" }} />
-                <span>seshadri@lehigh.edu</span>
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div
-          style={{
-            borderTop: "1px solid var(--border-card)",
-            paddingTop: "1.5rem",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "1rem",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "0.8rem",
-              color: "var(--text-muted)",
-            }}
-          >
-            © {new Date().getFullYear()} Seshadri Lab, Lehigh University. All
-            rights reserved.
-          </p>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/1687457403410-1M81OGJRTNPRO5ALQ6T5/Lehigh_University_Logo.png"
-              alt="Lehigh University"
-              style={{ height: "24px", width: "auto", opacity: 0.6 }}
-            />
-          </div>
+        <div style={{ borderTop: "1px solid #222222", paddingTop: "1.5rem", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", fontSize: "0.75rem", color: "#666" }}>
+          <span>Site designed with Antigravity</span>
+          <span>Seshadri Lab, Lehigh University Bioengineering</span>
         </div>
       </div>
     </footer>
