@@ -27,7 +27,13 @@ const S = {
   } as React.CSSProperties,
   section: (bg = "transparent"): React.CSSProperties => ({
     background: bg,
-    padding: "5rem 0",
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingTop: "6rem",
+    paddingBottom: "4rem",
+    position: "relative",
   }),
   label: {
     display: "inline-flex",
@@ -128,7 +134,7 @@ export default function ResearchPage() {
       <main style={S.page}>
 
         {/* ══════════════════ HERO ══════════════════ */}
-        <section style={{ ...S.section(), paddingTop: "6rem", paddingBottom: "3.5rem", position: "relative", overflow: "hidden" }}>
+        <section style={{ ...S.section(), minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "8rem", paddingBottom: "4rem", position: "relative", overflow: "hidden" }}>
           {/* Subtle ambient glow — far right */}
           <div style={{
             position: "absolute", inset: 0, pointerEvents: "none",
