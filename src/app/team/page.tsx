@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { motion } from "framer-motion";
-import { ExternalLink, ChevronRight, User } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink, ChevronRight, ChevronLeft, User } from "lucide-react";
 
 /* ── Shared Definitions ── */
 const GOLD = "#c9a84c";
@@ -12,8 +13,7 @@ const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   show: (i = 0) => ({
     opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+    transition: { delay: i * 0.08, duration: 0.55 },
   }),
 };
 
@@ -137,7 +137,7 @@ const consultants = [
   {
     name: "Bruce Muff",
     role: "Consultant",
-    photo: "", // No photo available
+    photo: "https://ui-avatars.com/api/?name=Bruce+Muff&background=111111&color=c9a84c&size=256",
     bio: "Bruce is an experienced and trusted advisor with deep expertise in semiconductor solutions, embedded processors, wireless technologies, and IoT sensor architectures. He is passionate about the electronic hardware industry and supporting small and startup companies, as well as Maker, R&D, and STEM initiatives. A proud Lehigh University alumnus, Bruce is consulting with the Seshadri Lab on projects relating to remote sensing for smart rehabilitation."
   }
 ];
@@ -152,6 +152,72 @@ const undergrads = [
 const visiting = "Sri Lakshmi Sriya Palaparty";
 const interns = ["Ian Chang", "Aditi Ramamurthi"];
 
+function GradStudentsCarousel({ students }: { students: typeof gradStudents }) {
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const next = () => {
+    setDirection(1);
+    setIndex((prev) => (prev + 1) % students.length);
+  };
+  
+  const prev = () => {
+    setDirection(-1);
+    setIndex((prev) => (prev - 1 + students.length) % students.length);
+  };
+
+  const current = students[index];
+
+  return (
+    <div style={{ ...S.card, maxWidth: 600, margin: "0 auto", position: "relative", overflow: "hidden", minHeight: 380, display: "flex", flexDirection: "column" }}>
+      <AnimatePresence mode="popLayout" custom={direction}>
+        <motion.div
+          key={index}
+          custom={direction}
+          initial={{ y: direction === 1 ? 80 : -80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: direction === 1 ? -80 : 80, opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          style={{ flex: 1, display: "flex", flexDirection: "column" }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
+            <img 
+              src={current.photo} 
+              alt={current.name} 
+              style={{ width: 96, height: 96, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", border: `2px solid ${GOLD}`, flexShrink: 0 }} 
+            />
+            <div>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#f5f0e8", marginBottom: "0.25rem" }}>{current.name}</h3>
+              <div style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{current.role}</div>
+            </div>
+          </div>
+          <p style={{ ...S.bodyText, fontSize: "0.9rem", width: "100%" }}>
+            {current.bio}
+          </p>
+        </motion.div>
+      </AnimatePresence>
+
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "2rem", borderTop: "1px solid #222", paddingTop: "1.5rem" }}>
+        <button 
+          onClick={prev}
+          style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#a69e8e", cursor: "pointer", fontWeight: 600 }}
+        >
+          <ChevronLeft size={18} /> Prev
+        </button>
+        <div style={{ color: "#a69e8e", fontSize: "0.85rem", fontWeight: 600 }}>
+          {index + 1} / {students.length}
+        </div>
+        <button 
+          onClick={next}
+          style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#a69e8e", cursor: "pointer", fontWeight: 600 }}
+        >
+          Next <ChevronRight size={18} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function TeamPage() {
   return (
     <>
@@ -159,7 +225,7 @@ export default function TeamPage() {
       <main style={S.page}>
 
         {/* ══════════════════ HERO ══════════════════ */}
-        <section style={{ ...S.section(), minHeight: "60vh", paddingTop: "10rem", paddingBottom: "4rem" }}>
+        <section style={{ ...S.section(), minHeight: "40vh", paddingTop: "7rem", paddingBottom: "3rem" }}>
           <div style={S.container}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
               <motion.div style={{ ...S.label, justifyContent: "center" }} initial="hidden" animate="show" variants={fadeUp} custom={0}>
@@ -222,11 +288,11 @@ export default function TeamPage() {
               className="lg:grid-cols-[40%_1fr]"
             >
               {/* Image Column */}
-              <div style={{ width: "100%", borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ width: "100%", borderRadius: 4, overflow: "hidden", display: "flex", justifyContent: "center" }}>
                 <img 
                   src={principalInvestigator.photo} 
                   alt={principalInvestigator.name} 
-                  style={{ width: "100%", height: "auto", objectFit: "cover" }} 
+                  style={{ width: "100%", height: "100%", maxHeight: 600, objectFit: "cover", objectPosition: "top center", borderRadius: 8 }} 
                 />
               </div>
 
@@ -284,34 +350,7 @@ export default function TeamPage() {
               <div style={{ ...S.divider, margin: "0.75rem auto 0 auto" }} />
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.5rem" }}>
-              {gradStudents.map((student, i) => (
-                <motion.div
-                  key={student.name}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, margin: "-40px" }}
-                  custom={i % 3}
-                  style={{ ...S.card, display: "flex", flexDirection: "column" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
-                    <img 
-                      src={student.photo} 
-                      alt={student.name} 
-                      style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover", border: `2px solid ${GOLD}` }} 
-                    />
-                    <div>
-                      <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#f5f0e8" }}>{student.name}</h3>
-                      <div style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{student.role}</div>
-                    </div>
-                  </div>
-                  <p style={{ ...S.bodyText, fontSize: "0.85rem", width: "100%" }}>
-                    {student.bio}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+            <GradStudentsCarousel students={gradStudents} />
           </div>
         </section>
 
@@ -340,10 +379,10 @@ export default function TeamPage() {
                 <div 
                   style={{ 
                     width: 100, height: 100, borderRadius: "50%", background: "#1a1a1a", border: "1px solid #333", 
-                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden"
                   }}
                 >
-                  <User size={32} color="#a69e8e" />
+                  <img src={consultant.photo} alt={consultant.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <div>
                   <h3 style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f5f0e8", marginBottom: "0.25rem" }}>{consultant.name}</h3>
