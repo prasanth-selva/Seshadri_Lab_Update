@@ -43,7 +43,7 @@ export default function PublicationsSection() {
     <section
       id="publications"
       className="flex flex-col justify-center overflow-hidden"
-      style={{ background: "var(--bg-secondary)", padding: "4rem 0", position: "relative" }}
+      style={{ background: "var(--bg-secondary)", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
     >
       <div
         style={{

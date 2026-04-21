@@ -37,8 +37,8 @@ export default function GallerySection() {
   return (
     <section
       id="gallery"
-      className="overflow-hidden relative bg-black"
-      style={{ padding: "4rem 0" }}
+      className="overflow-hidden relative bg-black flex flex-col justify-center"
+      style={{ padding: "6rem 0", minHeight: "100vh" }}
     >
       <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-12">
         <motion.div
