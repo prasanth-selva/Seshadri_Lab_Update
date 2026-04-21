@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Lenis from '@studio-freight/lenis'; 
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 
 export const galleryImages = [
@@ -26,23 +25,6 @@ export default function GallerySection() {
 
   useEffect(() => {
     setMounted(true);
-    
-    // Initialize Lenis for smooth parallax scrolling
-    // Note: since we are applying this to the Home page, this will enable 
-    // smooth scrolling globally for the page as long as it's mounted.
-    const lenis = new Lenis()
-    let rafId: number;
-    
-    function raf(time: number) {
-        lenis.raf(time)
-        rafId = requestAnimationFrame(raf)
-    }
-    rafId = requestAnimationFrame(raf)
-    
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    }
   }, []);
 
   // Format array for ZoomParallax (grab first 7, assign alt tags)
