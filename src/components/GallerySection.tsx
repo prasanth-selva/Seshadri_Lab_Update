@@ -92,9 +92,9 @@ export default function GallerySection() {
               {galleryImages.map((src, index) => (
                 <SwiperSlide
                   key={index}
-                  className="w-[95vw] md:w-[85vw] lg:w-[75vw] xl:w-[70vw]"
+                  className="w-[90vw] md:w-[75vw] max-w-[900px]"
                 >
-                  <div className="w-full rounded-2xl overflow-hidden relative bg-black/20" style={{ height: '520px' }}>
+                  <div className="w-full rounded-2xl overflow-hidden relative bg-[#050505] border border-[rgba(255,255,255,0.03)] shadow-2xl flex items-center justify-center" style={{ aspectRatio: '16/9' }}>
                     <img
                       src={src}
                       alt={`Gallery view ${index + 1}`}
