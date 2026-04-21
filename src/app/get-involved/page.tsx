@@ -205,8 +205,12 @@ export default function GetInvolvedPage() {
             </motion.p>
             
             <motion.div initial="hidden" animate="show" variants={fadeUp} custom={2} style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
-              <a href="#contact-form" className="btn-solid" style={{ background: GOLD, color: "#000", border: "none" }}>Contact Us &darr;</a>
-              <a href="#faq" className="btn-outline">View FAQs &darr;</a>
+              <a href="#contact-form" style={{ display: "inline-block", background: GOLD, color: "#000", fontWeight: 800, padding: "1rem 2.5rem", borderRadius: 4, textDecoration: "none", fontSize: "1.05rem" }}>
+                Contact Us &darr;
+              </a>
+              <a href="#faq" style={{ display: "inline-block", background: "transparent", color: GOLD, border: `1px solid ${GOLD}`, fontWeight: 800, padding: "1rem 2.5rem", borderRadius: 4, textDecoration: "none", fontSize: "1.05rem" }}>
+                View FAQs &darr;
+              </a>
             </motion.div>
           </div>
         </section>
