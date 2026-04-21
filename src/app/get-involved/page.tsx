@@ -67,7 +67,12 @@ const S = {
     marginBottom: "0.5rem",
     textTransform: "uppercase" as const,
     letterSpacing: "0.05em"
-  } as React.CSSProperties
+  } as React.CSSProperties,
+  card: {
+    background: "#111111",
+    border: "1px solid #222222",
+    borderRadius: 8,
+  } as React.CSSProperties,
 };
 
 const row1Logos = [
@@ -177,7 +182,7 @@ export default function GetInvolvedPage() {
       <main style={S.page}>
 
         {/* ══════════════════ HERO ══════════════════ */}
-        <section style={{ ...S.section("#0b0b0b"), minHeight: "50vh", paddingTop: "10rem" }}>
+        <section style={{ ...S.section("#0b0b0b"), minHeight: "100vh", paddingTop: "10rem" }}>
           <div style={{ ...S.container, textAlign: "center" }}>
             <motion.h1
               initial="hidden" animate="show" variants={fadeUp} custom={0}

@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Shield, Search, Users, Star, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Masonry from 'react-masonry-css'; // Assuming we can use simple CSS grid masonry if not installed
 
 const GOLD = "#c9a84c";
 
@@ -103,7 +102,7 @@ export default function ValuesPage() {
       <main style={S.page}>
 
         {/* ══════════════════ HERO ══════════════════ */}
-        <section style={{ position: "relative", minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+        <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
           {/* Background Image Overlay */}
           <div 
             style={{
