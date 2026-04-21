@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Lenis from 'lenis'; // Note: '@studio-freight/lenis' is deprecated and now 'lenis'
+import Lenis from '@studio-freight/lenis'; 
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 
 export const galleryImages = [
