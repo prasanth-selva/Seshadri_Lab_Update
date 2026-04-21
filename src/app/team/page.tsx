@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, ChevronRight, ChevronLeft, User } from "lucide-react";
+import { motion } from "framer-motion";
+import { ExternalLink, ChevronRight, User } from "lucide-react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 /* ── Shared Definitions ── */
 const GOLD = "#c9a84c";
@@ -153,67 +160,72 @@ const visiting = "Sri Lakshmi Sriya Palaparty";
 const interns = ["Ian Chang", "Aditi Ramamurthi"];
 
 function GradStudentsCarousel({ students }: { students: typeof gradStudents }) {
-  const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const [mounted, setMounted] = useState(false);
 
-  const next = () => {
-    setDirection(1);
-    setIndex((prev) => (prev + 1) % students.length);
-  };
-  
-  const prev = () => {
-    setDirection(-1);
-    setIndex((prev) => (prev - 1 + students.length) % students.length);
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const current = students[index];
+  if (!mounted) return <div style={{ minHeight: 400 }} />;
 
   return (
-    <div style={{ ...S.card, maxWidth: 600, margin: "0 auto", position: "relative", overflow: "hidden", minHeight: 380, display: "flex", flexDirection: "column" }}>
-      <AnimatePresence mode="popLayout" custom={direction}>
-        <motion.div
-          key={index}
-          custom={direction}
-          initial={{ y: direction === 1 ? 80 : -80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: direction === 1 ? -80 : 80, opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          style={{ flex: 1, display: "flex", flexDirection: "column" }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
-            <img 
-              src={current.photo} 
-              alt={current.name} 
-              style={{ width: 96, height: 96, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", border: `2px solid ${GOLD}`, flexShrink: 0 }} 
-            />
-            <div>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#f5f0e8", marginBottom: "0.25rem" }}>{current.name}</h3>
-              <div style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{current.role}</div>
+    <div style={{ width: "100%", position: "relative", paddingBottom: "3rem" }}>
+      <Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={1}
+        loop={true}
+        breakpoints={{
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 'auto' },
+        }}
+        initialSlide={1}
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 50,
+          depth: 100,
+          modifier: 1.5,
+          slideShadows: false,
+        }}
+        pagination={{ clickable: true, dynamicBullets: true }}
+        navigation={true}
+        modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
+        className="mySwiper w-full h-full pb-12"
+      >
+        {students.map((current, index) => (
+          <SwiperSlide
+            key={index}
+            style={{ width: "100%", maxWidth: 650 }}
+          >
+            <div style={{ ...S.card, minHeight: 400, display: "flex", flexDirection: "column", height: "100%", margin: "0 10px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
+                <img 
+                  src={current.photo} 
+                  alt={current.name} 
+                  style={{ width: 96, height: 96, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", border: `2px solid ${GOLD}`, flexShrink: 0 }} 
+                />
+                <div>
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#f5f0e8", marginBottom: "0.25rem" }}>{current.name}</h3>
+                  <div style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{current.role}</div>
+                </div>
+              </div>
+              <p style={{ ...S.bodyText, fontSize: "0.9rem", width: "100%" }}>
+                {current.bio}
+              </p>
             </div>
-          </div>
-          <p style={{ ...S.bodyText, fontSize: "0.9rem", width: "100%" }}>
-            {current.bio}
-          </p>
-        </motion.div>
-      </AnimatePresence>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "2rem", borderTop: "1px solid #222", paddingTop: "1.5rem" }}>
-        <button 
-          onClick={prev}
-          style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#a69e8e", cursor: "pointer", fontWeight: 600 }}
-        >
-          <ChevronLeft size={18} /> Prev
-        </button>
-        <div style={{ color: "#a69e8e", fontSize: "0.85rem", fontWeight: 600 }}>
-          {index + 1} / {students.length}
-        </div>
-        <button 
-          onClick={next}
-          style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#a69e8e", cursor: "pointer", fontWeight: 600 }}
-        >
-          Next <ChevronRight size={18} />
-        </button>
-      </div>
+      <style jsx global>{`
+        .swiper-pagination-bullet { background-color: #a69e8e !important; opacity: 0.5; }
+        .swiper-pagination-bullet-active { background-color: #c9a84c !important; opacity: 1; }
+        .swiper-button-next, .swiper-button-prev { color: #c9a84c !important; }
+        .swiper-button-next::after, .swiper-button-prev::after { font-size: 20px; }
+        .swiper-slide { transition: filter 0.3s, opacity 0.3s; filter: brightness(0.4); opacity: 0.6; }
+        .swiper-slide-active { filter: brightness(1); opacity: 1; }
+      `}</style>
     </div>
   );
 }
