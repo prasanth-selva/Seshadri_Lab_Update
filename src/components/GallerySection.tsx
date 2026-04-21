@@ -54,6 +54,78 @@ export default function GallerySection() {
       </div>
 
       <ZoomParallax images={imagesForParallax} />
+
+      {/* INFINITE MARQUEE FOR ALL PHOTOS */}
+      <div className="w-full relative py-16 bg-[#080808] overflow-hidden border-t border-[#1a1a1a]">
+        <div className="mb-10 text-center">
+          <h3 style={{ color: "#f5f0e8", fontSize: "1.2rem", fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>More from the Lab</h3>
+        </div>
+        
+        <div className="gallery-marquee-wrapper">
+          <div className="gallery-marquee-track">
+            {/* Render array three times for seamless looping */}
+            {[...galleryImages, ...galleryImages, ...galleryImages].map((src, i) => (
+              <div key={`gm-${i}`} className="gallery-marquee-item">
+                <img 
+                  src={src} 
+                  alt="Seshadri Lab Community" 
+                  className="w-full h-full object-cover rounded-md border border-[#222] grayscale hover:grayscale-0 transition-all duration-500" 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <style jsx>{`
+          .gallery-marquee-wrapper {
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+          }
+          .gallery-marquee-wrapper::before,
+          .gallery-marquee-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 15vw;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+          }
+          .gallery-marquee-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, #080808 0%, transparent 100%);
+          }
+          .gallery-marquee-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, #080808 0%, transparent 100%);
+          }
+          .gallery-marquee-track {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+            padding: 0 1rem;
+            animation: galleryMarqueeLeft 60s linear infinite;
+          }
+          .gallery-marquee-track:hover {
+            animation-play-state: paused;
+          }
+          .gallery-marquee-item {
+            width: 320px;
+            height: 240px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          @keyframes galleryMarqueeLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+          }
+        `}</style>
+      </div>
+
     </section>
   );
 }
