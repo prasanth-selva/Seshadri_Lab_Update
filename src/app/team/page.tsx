@@ -14,7 +14,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 /* ── Shared Definitions ── */
-const GOLD = "#c9a84c";
+const GOLD = "var(--accent-gold)";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -25,7 +25,7 @@ const fadeUp = {
 };
 
 const S = {
-  page: { background: "#080808", color: "#f5f0e8", minHeight: "100vh" } as React.CSSProperties,
+  page: { background: "var(--bg-primary)", color: "var(--text-primary)", minHeight: "100vh" } as React.CSSProperties,
   container: {
     maxWidth: 1440,
     margin: "0 auto",
@@ -62,17 +62,17 @@ const S = {
     fontWeight: 800,
     letterSpacing: "-0.02em",
     lineHeight: 1.15,
-    color: "#f5f0e8",
+    color: "var(--text-primary)",
     marginBottom: "0.75rem",
   } as React.CSSProperties,
   bodyText: {
     fontSize: "0.95rem",
     lineHeight: 1.75,
-    color: "#a69e8e",
+    color: "var(--text-secondary)",
     maxWidth: 600,
   } as React.CSSProperties,
   card: {
-    background: "#111111",
+    background: "var(--bg-card)",
     border: "1px solid #222222",
     borderRadius: 8,
     padding: "2rem",
@@ -206,7 +206,7 @@ function GradStudentsCarousel({ students }: { students: typeof gradStudents }) {
                   style={{ width: 96, height: 96, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", border: `2px solid ${GOLD}`, flexShrink: 0 }} 
                 />
                 <div>
-                  <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#f5f0e8", marginBottom: "0.25rem" }}>{current.name}</h3>
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.25rem" }}>{current.name}</h3>
                   <div style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{current.role}</div>
                 </div>
               </div>
@@ -219,9 +219,9 @@ function GradStudentsCarousel({ students }: { students: typeof gradStudents }) {
       </Swiper>
 
       <style jsx global>{`
-        .swiper-pagination-bullet { background-color: #a69e8e !important; opacity: 0.5; }
-        .swiper-pagination-bullet-active { background-color: #c9a84c !important; opacity: 1; }
-        .swiper-button-next, .swiper-button-prev { color: #c9a84c !important; }
+        .swiper-pagination-bullet { background-color: var(--text-secondary) !important; opacity: 0.5; }
+        .swiper-pagination-bullet-active { background-color: var(--accent-gold) !important; opacity: 1; }
+        .swiper-button-next, .swiper-button-prev { color: var(--accent-gold) !important; }
         .swiper-button-next::after, .swiper-button-prev::after { font-size: 20px; }
         .swiper-slide { transition: filter 0.3s, opacity 0.3s; filter: brightness(0.4); opacity: 0.6; }
         .swiper-slide-active { filter: brightness(1); opacity: 1; }
@@ -254,7 +254,7 @@ export default function TeamPage() {
                   lineHeight: 1.1,
                   letterSpacing: "-0.03em",
                   marginBottom: "1rem",
-                  color: "#f5f0e8",
+                  color: "var(--text-primary)",
                 }}
               >
                 Meet Our Team
@@ -277,7 +277,7 @@ export default function TeamPage() {
 
 
         {/* ══════════════════ PRINCIPAL INVESTIGATOR ══════════════════ */}
-        <section style={S.section("#0b0b0b")}>
+        <section style={S.section("var(--bg-secondary)")}>
           <div style={S.container}>
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <div style={S.label}>Lab Director</div>
@@ -310,7 +310,7 @@ export default function TeamPage() {
 
               {/* Bio Column */}
               <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <h3 style={{ fontSize: "2rem", fontWeight: 800, color: "#f5f0e8", marginBottom: "0.25rem" }}>
+                <h3 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.25rem" }}>
                   {principalInvestigator.name}
                 </h3>
                 <p style={{ color: GOLD, fontSize: "1rem", fontWeight: 600, marginBottom: "1.5rem" }}>
@@ -328,7 +328,7 @@ export default function TeamPage() {
                     <span 
                       key={idx}
                       style={{ 
-                        fontSize: "0.75rem", background: "#1a1a1a", color: "#a69e8e", padding: "0.4rem 0.8rem", borderRadius: 4, border: "1px solid #333" 
+                        fontSize: "0.75rem", background: "var(--bg-card-hover)", color: "var(--text-secondary)", padding: "0.4rem 0.8rem", borderRadius: 4, border: "1px solid var(--border-strong)" 
                       }}
                     >
                       {cred}
@@ -370,7 +370,7 @@ export default function TeamPage() {
         <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
 
         {/* ══════════════════ CONSULTANTS ══════════════════ */}
-        <section style={S.section("#0b0b0b")}>
+        <section style={S.section("var(--bg-secondary)")}>
           <div style={S.container}>
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <div style={S.label}>Industry Experts</div>
@@ -390,14 +390,14 @@ export default function TeamPage() {
               >
                 <div 
                   style={{ 
-                    width: 100, height: 100, borderRadius: "50%", background: "#1a1a1a", border: "1px solid #333", 
+                    width: 100, height: 100, borderRadius: "50%", background: "var(--bg-card-hover)", border: "1px solid var(--border-strong)", 
                     display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden"
                   }}
                 >
                   <img src={consultant.photo} alt={consultant.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f5f0e8", marginBottom: "0.25rem" }}>{consultant.name}</h3>
+                  <h3 style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.25rem" }}>{consultant.name}</h3>
                   <div style={{ fontSize: "0.85rem", color: GOLD, fontWeight: 600, marginBottom: "1rem" }}>{consultant.role}</div>
                   <p style={{ ...S.bodyText, maxWidth: "none" }}>{consultant.bio}</p>
                 </div>
@@ -422,10 +422,10 @@ export default function TeamPage() {
                 <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
                   {undergrads.map((cohort) => (
                     <div key={cohort.classOf}>
-                      <h4 style={{ fontSize: "0.95rem", color: "#f5f0e8", fontWeight: 700, marginBottom: "1rem", letterSpacing: "0.05em" }}>Class of {cohort.classOf}</h4>
+                      <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", fontWeight: 700, marginBottom: "1rem", letterSpacing: "0.05em" }}>Class of {cohort.classOf}</h4>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                         {cohort.students.map(student => (
-                          <span key={student} style={{ padding: "0.4rem 0.8rem", background: "#111", border: "1px solid #222", borderRadius: 4, fontSize: "0.8rem", color: "#a69e8e" }}>
+                          <span key={student} style={{ padding: "0.4rem 0.8rem", background: "var(--bg-card)", border: "1px solid #222", borderRadius: 4, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
                             {student}
                           </span>
                         ))}
@@ -434,8 +434,8 @@ export default function TeamPage() {
                   ))}
 
                   <div>
-                    <h4 style={{ fontSize: "0.95rem", color: "#f5f0e8", fontWeight: 700, marginBottom: "1rem", letterSpacing: "0.05em" }}>Visiting Researcher</h4>
-                    <span style={{ padding: "0.4rem 0.8rem", background: "#111", border: "1px solid #222", borderRadius: 4, fontSize: "0.8rem", color: "#a69e8e" }}>
+                    <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", fontWeight: 700, marginBottom: "1rem", letterSpacing: "0.05em" }}>Visiting Researcher</h4>
+                    <span style={{ padding: "0.4rem 0.8rem", background: "var(--bg-card)", border: "1px solid #222", borderRadius: 4, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
                       {visiting}
                     </span>
                   </div>
@@ -448,7 +448,7 @@ export default function TeamPage() {
                 <div style={S.divider} />
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                   {interns.map(intern => (
-                    <span key={intern} style={{ padding: "0.4rem 0.8rem", background: "#111", border: "1px solid #222", borderRadius: 4, fontSize: "0.8rem", color: "#a69e8e" }}>
+                    <span key={intern} style={{ padding: "0.4rem 0.8rem", background: "var(--bg-card)", border: "1px solid #222", borderRadius: 4, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
                       {intern}
                     </span>
                   ))}
@@ -462,7 +462,7 @@ export default function TeamPage() {
         <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
 
         {/* ══════════════════ CTA ══════════════════ */}
-        <section style={{ ...S.section("#0b0b0b"), padding: "8rem 0" }}>
+        <section style={{ ...S.section("var(--bg-secondary)"), padding: "8rem 0" }}>
           <div style={S.container}>
             <motion.div 
               variants={fadeUp} 
@@ -470,7 +470,7 @@ export default function TeamPage() {
               whileInView="show" 
               viewport={{ once: true }}
               style={{
-                background: "#c9a84c", // High contrast gold box
+                background: "var(--accent-gold)", // High contrast gold box
                 borderRadius: 8,
                 padding: "4rem 2rem",
                 textAlign: "center"
@@ -479,7 +479,7 @@ export default function TeamPage() {
               <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, color: "#000", marginBottom: "1.5rem", letterSpacing: "-0.02em" }}>
                 Join Our Team
               </h2>
-              <p style={{ fontSize: "1.05rem", color: "#111", maxWidth: 700, margin: "0 auto 2.5rem auto", lineHeight: 1.6, fontWeight: 500 }}>
+              <p style={{ fontSize: "1.05rem", color: "var(--bg-card)", maxWidth: 700, margin: "0 auto 2.5rem auto", lineHeight: 1.6, fontWeight: 500 }}>
                 We are always looking for motivated individuals who resonate with our core values: integrity, curiosity, community, and excellence. We offer a highly collaborative environment for undergraduate students, graduate researchers, and postdoctoral fellows.
               </p>
               
