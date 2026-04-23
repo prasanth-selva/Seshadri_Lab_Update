@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { label: "Home", href: "/#hero" },
@@ -50,11 +51,11 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           background: scrolled
-            ? "rgba(8, 8, 8, 0.85)"
+            ? "var(--bg-glass)"
             : "transparent",
           backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
           borderBottom: scrolled
-            ? "1px solid rgba(201, 168, 76, 0.08)"
+            ? "1px solid var(--border-subtle)"
             : "1px solid transparent",
           transition: "background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease",
         }}
@@ -96,25 +97,26 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+          <ThemeToggle />
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-          style={{
-            display: "none",
-            background: "none",
-            border: "none",
-            color: "var(--text-primary)",
-            cursor: "pointer",
-            padding: "0.5rem",
-            zIndex: 1100,
-          }}
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="mobile-menu-btn flex items-center gap-4 hidden">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+            style={{
+              background: "none",
+              border: "none",
+              color: "var(--text-primary)",
+              cursor: "pointer",
+              padding: "0.5rem",
+              zIndex: 1100,
+            }}
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </motion.nav>
 
       {/* Mobile Drawer */}
@@ -132,7 +134,7 @@ export default function Navbar() {
               right: 0,
               bottom: 0,
               zIndex: 1050,
-              background: "rgba(8, 8, 8, 0.97)",
+              background: "var(--bg-primary)",
               backdropFilter: "blur(30px)",
               display: "flex",
               flexDirection: "column",
@@ -170,7 +172,7 @@ export default function Navbar() {
             display: none !important;
           }
           .mobile-menu-btn {
-            display: block !important;
+            display: flex !important;
           }
         }
       `}</style>
