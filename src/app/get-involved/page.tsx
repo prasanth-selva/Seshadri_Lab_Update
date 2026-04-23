@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, MapPin, Mail, Phone, Send, Heart, FlaskConical, Users } from "lucide-react";
 
-const GOLD = "#c9a84c";
+const GOLD = "var(--accent-gold)";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -18,7 +18,7 @@ const fadeUp = {
 };
 
 const S = {
-  page: { background: "#080808", color: "#f5f0e8", minHeight: "100vh" } as React.CSSProperties,
+  page: { background: "var(--bg-primary)", color: "var(--text-primary)", minHeight: "100vh" } as React.CSSProperties,
   container: {
     maxWidth: 1440,
     margin: "0 auto",
@@ -40,17 +40,17 @@ const S = {
     fontWeight: 800,
     letterSpacing: "-0.02em",
     lineHeight: 1.15,
-    color: "#f5f0e8",
+    color: "var(--text-primary)",
     marginBottom: "1rem",
   } as React.CSSProperties,
   bodyText: {
     fontSize: "1.05rem",
     lineHeight: 1.75,
-    color: "#a69e8e",
+    color: "var(--text-secondary)",
   } as React.CSSProperties,
   input: {
     width: "100%",
-    background: "#1a1a1a",
+    background: "var(--bg-card-hover)",
     border: "1px solid #333",
     borderRadius: 4,
     padding: "1rem",
@@ -63,14 +63,14 @@ const S = {
     display: "block",
     fontSize: "0.85rem",
     fontWeight: 700,
-    color: "#a69e8e",
+    color: "var(--text-secondary)",
     marginBottom: "0.5rem",
     textTransform: "uppercase" as const,
     letterSpacing: "0.05em"
   } as React.CSSProperties,
   card: {
-    background: "#111111",
-    border: "1px solid #222222",
+    background: "var(--bg-card)",
+    border: "1px solid var(--border-strong)",
     borderRadius: 8,
   } as React.CSSProperties,
 };
@@ -140,12 +140,12 @@ function Accordion({ faqs }: { faqs: { q: string, a: string }[] }) {
       {faqs.map((faq, i) => {
         const isOpen = openIndex === i;
         return (
-          <div key={i} style={{ background: "#111", border: "1px solid #222", borderRadius: 8, overflow: "hidden" }}>
+          <div key={i} style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 8, overflow: "hidden" }}>
             <button
               onClick={() => toggle(i)}
               style={{
                 width: "100%", padding: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center",
-                background: "transparent", border: "none", color: "#f5f0e8", fontSize: "1.1rem", fontWeight: 700,
+                background: "transparent", border: "none", color: "var(--text-primary)", fontSize: "1.1rem", fontWeight: 700,
                 textAlign: "left", cursor: "pointer"
               }}
             >
@@ -162,7 +162,7 @@ function Accordion({ faqs }: { faqs: { q: string, a: string }[] }) {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div style={{ padding: "0 1.5rem 1.5rem 1.5rem", color: "#a69e8e", lineHeight: 1.6 }}>
+                  <div style={{ padding: "0 1.5rem 1.5rem 1.5rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
                     {faq.a}
                   </div>
                 </motion.div>
@@ -182,7 +182,7 @@ export default function GetInvolvedPage() {
       <main style={S.page}>
 
         {/* ══════════════════ HERO ══════════════════ */}
-        <section style={{ ...S.section("#0b0b0b"), minHeight: "100vh", paddingTop: "10rem" }}>
+        <section style={{ ...S.section("var(--bg-secondary)"), minHeight: "100vh", paddingTop: "10rem" }}>
           <div style={{ ...S.container, textAlign: "center" }}>
             <motion.h1
               initial="hidden" animate="show" variants={fadeUp} custom={0}
@@ -233,7 +233,7 @@ export default function GetInvolvedPage() {
             </motion.div>
             
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-              <div style={{ borderRadius: 8, overflow: "hidden", border: "1px solid #222" }}>
+              <div style={{ borderRadius: 8, overflow: "hidden", border: "1px solid var(--border-strong)" }}>
                 <img 
                   src="https://images.squarespace-cdn.com/content/v1/64948e66fcd18846e12021bd/b2e33323-917f-45ec-ba75-2883cc7223ae/mHEAL+Yellow.jpg" 
                   alt="Seshadri Lab Collaboration" 
@@ -245,7 +245,7 @@ export default function GetInvolvedPage() {
         </section>
 
         {/* ══════════════════ PARTNERS MARQUEE ══════════════════ */}
-        <section style={{ ...S.section("#0b0b0b"), overflow: "hidden" }}>
+        <section style={{ ...S.section("var(--bg-secondary)"), overflow: "hidden" }}>
           <div style={{ ...S.container, textAlign: "center", marginBottom: "4rem" }}>
             <h2 style={S.h2}>Our Partners & Collaborators</h2>
             <p style={{ ...S.bodyText, margin: "0 auto", maxWidth: 600 }}>A growing network of world-class institutions driving impact.</p>
@@ -291,11 +291,11 @@ export default function GetInvolvedPage() {
             }
             .marquee-wrapper::before {
               left: 0;
-              background: linear-gradient(to right, #0b0b0b 0%, transparent 100%);
+              background: linear-gradient(to right, var(--bg-secondary) 0%, transparent 100%);
             }
             .marquee-wrapper::after {
               right: 0;
-              background: linear-gradient(to left, #0b0b0b 0%, transparent 100%);
+              background: linear-gradient(to left, var(--bg-secondary) 0%, transparent 100%);
             }
             .marquee-track {
               display: flex;
@@ -336,37 +336,37 @@ export default function GetInvolvedPage() {
             {/* Left Info Block */}
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <div style={{ ...S.card, padding: "2.5rem" }}>
-                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#f5f0e8", marginBottom: "0.25rem" }}>Dhruv R. Seshadri, Ph.D.</h3>
+                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.25rem" }}>Dhruv R. Seshadri, Ph.D.</h3>
                 <p style={{ color: GOLD, fontSize: "0.9rem", fontWeight: 700, marginBottom: "2rem" }}>Assistant Professor, Lehigh University</p>
                 
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                   <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
-                    <div style={{ background: "#1a1a1a", padding: "0.5rem", borderRadius: 4, flexShrink: 0 }}>
+                    <div style={{ background: "var(--bg-card-hover)", padding: "0.5rem", borderRadius: 4, flexShrink: 0 }}>
                       <MapPin size={20} color={GOLD} />
                     </div>
                     <div>
-                      <span style={{ display: "block", color: "#f5f0e8", fontWeight: 600, marginBottom: "0.25rem" }}>Address</span>
-                      <span style={{ color: "#a69e8e", fontSize: "0.95rem" }}>Iacocca Hall, 111 Research Drive<br/>Room C343<br/>Bethlehem, PA 18015</span>
+                      <span style={{ display: "block", color: "var(--text-primary)", fontWeight: 600, marginBottom: "0.25rem" }}>Address</span>
+                      <span style={{ color: "var(--text-secondary)", fontSize: "0.95rem" }}>Iacocca Hall, 111 Research Drive<br/>Room C343<br/>Bethlehem, PA 18015</span>
                     </div>
                   </div>
 
                   <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
-                    <div style={{ background: "#1a1a1a", padding: "0.5rem", borderRadius: 4, flexShrink: 0 }}>
+                    <div style={{ background: "var(--bg-card-hover)", padding: "0.5rem", borderRadius: 4, flexShrink: 0 }}>
                       <Mail size={20} color={GOLD} />
                     </div>
                     <div>
-                      <span style={{ display: "block", color: "#f5f0e8", fontWeight: 600, marginBottom: "0.25rem" }}>Email</span>
-                      <a href="mailto:dhs223@lehigh.edu" style={{ color: "#a69e8e", fontSize: "0.95rem", textDecoration: "none" }}>dhs223@lehigh.edu</a>
+                      <span style={{ display: "block", color: "var(--text-primary)", fontWeight: 600, marginBottom: "0.25rem" }}>Email</span>
+                      <a href="mailto:dhs223@lehigh.edu" style={{ color: "var(--text-secondary)", fontSize: "0.95rem", textDecoration: "none" }}>dhs223@lehigh.edu</a>
                     </div>
                   </div>
 
                   <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
-                    <div style={{ background: "#1a1a1a", padding: "0.5rem", borderRadius: 4, flexShrink: 0 }}>
+                    <div style={{ background: "var(--bg-card-hover)", padding: "0.5rem", borderRadius: 4, flexShrink: 0 }}>
                       <Phone size={20} color={GOLD} />
                     </div>
                     <div>
-                      <span style={{ display: "block", color: "#f5f0e8", fontWeight: 600, marginBottom: "0.25rem" }}>Phone</span>
-                      <span style={{ color: "#a69e8e", fontSize: "0.95rem" }}>(610) 758-4790</span>
+                      <span style={{ display: "block", color: "var(--text-primary)", fontWeight: 600, marginBottom: "0.25rem" }}>Phone</span>
+                      <span style={{ color: "var(--text-secondary)", fontSize: "0.95rem" }}>(610) 758-4790</span>
                     </div>
                   </div>
                 </div>
@@ -479,7 +479,7 @@ export default function GetInvolvedPage() {
         </section>
 
         {/* ══════════════════ FAQ ══════════════════ */}
-        <section id="faq" style={S.section("#0b0b0b")}>
+        <section id="faq" style={S.section("var(--bg-secondary)")}>
           <div style={S.container}>
             <div style={{ textAlign: "center", marginBottom: "4rem" }}>
               <h2 style={S.h2}>Frequently Asked Questions</h2>

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Shield, Search, Users, Star, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const GOLD = "#c9a84c";
+const GOLD = "var(--accent-gold)";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -18,7 +18,7 @@ const fadeUp = {
 };
 
 const S = {
-  page: { background: "#080808", color: "#f5f0e8", minHeight: "100vh" } as React.CSSProperties,
+  page: { background: "var(--bg-primary)", color: "var(--text-primary)", minHeight: "100vh" } as React.CSSProperties,
   container: {
     maxWidth: 1440,
     margin: "0 auto",
@@ -36,8 +36,8 @@ const S = {
     position: "relative",
   }),
   card: {
-    background: "#111111",
-    border: "1px solid #222222",
+    background: "var(--bg-card)",
+    border: "1px solid var(--border-strong)",
     borderRadius: 8,
     padding: "3rem",
     height: "100%",
@@ -49,13 +49,13 @@ const S = {
     fontWeight: 800,
     letterSpacing: "-0.02em",
     lineHeight: 1.15,
-    color: "#f5f0e8",
+    color: "var(--text-primary)",
     marginBottom: "1rem",
   } as React.CSSProperties,
   bodyText: {
     fontSize: "1rem",
     lineHeight: 1.75,
-    color: "#a69e8e",
+    color: "var(--text-secondary)",
   } as React.CSSProperties,
 };
 
@@ -150,12 +150,12 @@ export default function ValuesPage() {
                   key={val.title}
                   variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-50px" }} custom={idx}
                   style={S.card}
-                  className="hover:border-[#c9a84c] transition-colors duration-300"
+                  className="hover:border-[var(--accent-gold)] transition-colors duration-300"
                 >
                   <div style={{ background: "rgba(201,168,76,0.08)", width: 72, height: 72, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "2rem" }}>
                     {val.icon}
                   </div>
-                  <h3 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#f5f0e8", marginBottom: "1rem" }}>{val.title}</h3>
+                  <h3 style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "1rem" }}>{val.title}</h3>
                   <p style={{ ...S.bodyText, marginTop: "auto" }}>{val.desc}</p>
                 </motion.div>
               ))}
@@ -164,7 +164,7 @@ export default function ValuesPage() {
         </section>
 
         {/* ══════════════════ VALUES IN ACTION (MASONRY) ══════════════════ */}
-        <section style={S.section("#0b0b0b")}>
+        <section style={S.section("var(--bg-secondary)")}>
           <div style={S.container}>
             <div style={{ textAlign: "center", marginBottom: "4rem" }}>
               <h2 style={S.h2}>Values in Action</h2>

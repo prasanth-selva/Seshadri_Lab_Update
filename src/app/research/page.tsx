@@ -16,9 +16,9 @@ const fadeUp = {
 };
 
 /* ── Shared styles ── */
-const GOLD = "#c9a84c";
+const GOLD = "var(--accent-gold)";
 const S = {
-  page: { background: "#080808", color: "#f5f0e8", minHeight: "100vh" } as React.CSSProperties,
+  page: { background: "var(--bg-primary)", color: "var(--text-primary)", minHeight: "100vh" } as React.CSSProperties,
   container: {
     maxWidth: 1440,
     margin: "0 auto",
@@ -56,7 +56,7 @@ const S = {
     fontWeight: 800,
     letterSpacing: "-0.02em",
     lineHeight: 1.15,
-    color: "#f5f0e8",
+    color: "var(--text-primary)",
     marginBottom: "0.75rem",
   } as React.CSSProperties,
   divider: {
@@ -73,8 +73,8 @@ const S = {
     maxWidth: 560,
   } as React.CSSProperties,
   card: {
-    background: "#111111",
-    border: "1px solid rgba(255,255,255,0.07)",
+    background: "var(--bg-card)",
+    border: "1px solid var(--border-card)",
     borderRadius: 14,
     padding: "1.5rem",
   } as React.CSSProperties,
@@ -156,7 +156,7 @@ export default function ResearchPage() {
                     lineHeight: 1.1,
                     letterSpacing: "-0.03em",
                     marginBottom: "1.5rem",
-                    color: "#f5f0e8",
+                    color: "var(--text-primary)",
                   }}
                 >
                   Advancing Clinical<br />
@@ -217,8 +217,8 @@ export default function ResearchPage() {
                       <Icon size={20} color={GOLD} />
                     </div>
                     <div>
-                      <div style={{ fontSize: "2rem", fontWeight: 800, color: "#f5f0e8", lineHeight: 1 }}>{n}</div>
-                      <div style={{ fontSize: "0.75rem", color: "#6b6356", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.07em", marginTop: "0.5rem" }}>{label}</div>
+                      <div style={{ fontSize: "2rem", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>{n}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.07em", marginTop: "0.5rem" }}>{label}</div>
                     </div>
                   </div>
                 ))}
@@ -231,7 +231,7 @@ export default function ResearchPage() {
         <div style={{ height: 1, background: "rgba(255,255,255,0.05)", margin: "0" }} />
 
         {/* ══════════════════ PASSION AREAS ══════════════════ */}
-        <section style={S.section("#0b0b0b")}>
+        <section style={S.section("var(--bg-secondary)")}>
           <div style={S.container}>
             {/* Section header */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center", textAlign: "center", marginBottom: "3rem", maxWidth: 800, margin: "0 auto 3rem auto" }}>
@@ -269,8 +269,8 @@ export default function ResearchPage() {
                     <Icon size={18} color={GOLD} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#f5f0e8", marginBottom: 4 }}>{title}</h3>
-                    <p style={{ fontSize: "0.82rem", lineHeight: 1.7, color: "#7a7268" }}>{desc}</p>
+                    <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: 4 }}>{title}</h3>
+                    <p style={{ fontSize: "0.82rem", lineHeight: 1.7, color: "var(--text-secondary)" }}>{desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -288,10 +288,10 @@ export default function ResearchPage() {
               <div>
                 <h2 style={{ ...S.h2, marginBottom: 0 }}>Core Research Areas</h2>
               </div>
-              <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)", marginTop: "1.5rem" }} />
+              <div style={{ flex: 1, height: 1, background: "var(--border-card)", marginTop: "1.5rem" }} />
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "rgba(255,255,255,0.06)", borderRadius: 16, overflow: "hidden" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "var(--border-card)", borderRadius: 16, overflow: "hidden" }}>
               {verticals.map(({ title, desc }, i) => (
                 <motion.div
                   key={title}
@@ -300,12 +300,12 @@ export default function ResearchPage() {
                   whileInView="show"
                   viewport={{ once: true, margin: "-40px" }}
                   custom={i % 3}
-                  style={{ background: "#0e0e0e", padding: "2rem 1.75rem" }}
+                  style={{ background: "var(--bg-secondary)", padding: "2rem 1.75rem" }}
                   whileHover={{ background: "#141414" } as never}
                 >
                   <div style={{ width: 24, height: 3, background: GOLD, borderRadius: 4, marginBottom: "1rem" }} />
-                  <h3 style={{ fontSize: "0.9rem", fontWeight: 700, color: "#f5f0e8", lineHeight: 1.4, marginBottom: "0.6rem" }}>{title}</h3>
-                  <p style={{ fontSize: "0.8rem", lineHeight: 1.75, color: "#7a7268" }}>{desc}</p>
+                  <h3 style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.4, marginBottom: "0.6rem" }}>{title}</h3>
+                  <p style={{ fontSize: "0.8rem", lineHeight: 1.75, color: "var(--text-secondary)" }}>{desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -316,7 +316,7 @@ export default function ResearchPage() {
         <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
 
         {/* ══════════════════ ONGOING STUDIES ══════════════════ */}
-        <section style={S.section("#0b0b0b")}>
+        <section style={S.section("var(--bg-secondary)")}>
           <div style={S.container}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "4rem", alignItems: "start" }}>
               {/* Sticky left label */}
@@ -345,8 +345,8 @@ export default function ResearchPage() {
                       alignItems: "center",
                       gap: 10,
                       padding: "0.875rem 1.125rem",
-                      background: "#111",
-                      border: "1px solid rgba(255,255,255,0.07)",
+                      background: "var(--bg-card)",
+                      border: "1px solid var(--border-card)",
                       borderRadius: 10,
                       cursor: "default",
                     }}
@@ -411,14 +411,14 @@ export default function ResearchPage() {
         <div style={{ height: 1, background: "rgba(255,255,255,0.05)" }} />
 
         {/* ══════════════════ PUBLICATIONS ══════════════════ */}
-        <section style={S.section("#0b0b0b")}>
+        <section style={S.section("var(--bg-secondary)")}>
           <div style={S.container}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1rem" }}>
               <div>
                 <div style={S.label}>Peer Reviewed</div>
                 <h2 style={{ ...S.h2, marginBottom: 0 }}>Selected Publications</h2>
               </div>
-              <p style={{ fontSize: "0.83rem", color: "#6b6356", maxWidth: 320, textAlign: "right" as const, lineHeight: 1.6 }}>
+              <p style={{ fontSize: "0.83rem", color: "var(--text-muted)", maxWidth: 320, textAlign: "right" as const, lineHeight: 1.6 }}>
                 Advancing scientific understanding across wearable bioelectronics,
                 digital medicine, and clinical engineering.
               </p>

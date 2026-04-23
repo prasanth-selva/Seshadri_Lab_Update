@@ -30,7 +30,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 
 	return (
 		<div ref={container} className="relative h-[300vh] w-full">
-			<div className="sticky top-0 h-screen overflow-hidden w-full bg-black">
+			<div className="sticky top-0 h-screen overflow-hidden w-full bg-[var(--bg-primary)] transition-colors duration-300">
 				{images.map(({ src, alt }, index) => {
 					const scale = scales[index % scales.length];
 
@@ -50,7 +50,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 						</motion.div>
 					);
 				})}
-				<div className="absolute inset-0 z-10 pointer-events-none" style={{ background: "radial-gradient(circle, transparent 20%, rgba(8,8,8,0.7) 100%)" }}></div>
+				<div className="absolute inset-0 z-10 pointer-events-none" style={{ background: "radial-gradient(circle, transparent 20%, color-mix(in srgb, var(--bg-primary) 70%, transparent) 100%)" }}></div>
 			</div>
 		</div>
 	);

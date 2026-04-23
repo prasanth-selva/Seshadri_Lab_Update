@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, MapPin, GraduationCap, ExternalLink, BookOpen, FlaskConical, Users, Sparkles } from "lucide-react";
 
 /* ── Shared ── */
-const GOLD = "#c9a84c";
+const GOLD = "var(--accent-gold)";
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   show: (i = 0) => ({
@@ -16,7 +16,8 @@ const CONTAINER: React.CSSProperties = {
   maxWidth: 1440, margin: "0 auto", padding: "0 2.5rem", width: "100%",
 };
 const CARD: React.CSSProperties = {
-  background: "#111111", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 14,
+  background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14,
+  transition: "background 0.3s ease, border-color 0.3s ease"
 };
 const LABEL: React.CSSProperties = {
   display: "inline-flex", alignItems: "center", gap: 6,
@@ -46,8 +47,8 @@ export default function TeamSection() {
   return (
     <section
       id="team"
-      className="flex flex-col items-center justify-center w-full overflow-hidden"
-      style={{ background: "#080808", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
+      className="flex flex-col items-center justify-center w-full overflow-hidden transition-colors duration-300"
+      style={{ background: "var(--bg-primary)", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
     >
 
       <div style={{ ...CONTAINER, position: "relative", zIndex: 1 }}>
@@ -64,11 +65,11 @@ export default function TeamSection() {
           <h2 style={{
             fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
             fontWeight: 800, letterSpacing: "-0.02em",
-            lineHeight: 1.15, color: "#f5f0e8", marginBottom: "0.5rem",
+            lineHeight: 1.15, color: "var(--text-primary)", marginBottom: "0.5rem",
           }}>
             Our Team
           </h2>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.75, color: "#7a7268", maxWidth: 500 }}>
+          <p style={{ fontSize: "0.88rem", lineHeight: 1.75, color: "var(--text-secondary)", maxWidth: 500 }}>
             Led by Principal Investigator Dr. Dhruv Seshadri, our lab brings together
             passionate researchers, postdocs, and students dedicated to transforming healthcare.
           </p>
@@ -109,8 +110,8 @@ export default function TeamSection() {
                 <Icon size={17} color={GOLD} />
               </div>
               <div>
-                <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#f5f0e8", lineHeight: 1 }}>{n}</div>
-                <div style={{ fontSize: "0.72rem", color: "#6b6356", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.07em", marginTop: 3 }}>{label}</div>
+                <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>{n}</div>
+                <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.07em", marginTop: 3 }}>{label}</div>
               </div>
             </motion.div>
           ))}
@@ -131,8 +132,8 @@ export default function TeamSection() {
             <div style={{
               width: 240,
               flexShrink: 0,
-              background: "#0e0e0e",
-              borderRight: "1px solid rgba(255,255,255,0.06)",
+              background: "var(--bg-secondary)",
+              borderRight: "1px solid var(--border-card)",
               padding: "2.5rem 2rem",
               display: "flex",
               flexDirection: "column",
@@ -166,7 +167,7 @@ export default function TeamSection() {
               </div>
 
               <div style={{ textAlign: "center", marginTop: 8 }}>
-                <div style={{ fontSize: "1rem", fontWeight: 700, color: "#f5f0e8", marginBottom: 3 }}>Dr. Dhruv Seshadri</div>
+                <div style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: 3 }}>Dr. Dhruv Seshadri</div>
                 <div style={{ fontSize: "0.7rem", color: GOLD, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}>
                   Bioengineering
                 </div>
@@ -250,13 +251,13 @@ export default function TeamSection() {
               <div style={{
                 display: "flex", gap: "2rem", flexWrap: "wrap",
                 paddingTop: "1.5rem",
-                borderTop: "1px solid rgba(255,255,255,0.06)",
+                borderTop: "1px solid var(--border-card)",
               }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.8rem", color: "#7a7268" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
                   <GraduationCap size={14} color={GOLD} />
                   Department of Bioengineering
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.8rem", color: "#7a7268" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
                   <MapPin size={14} color={GOLD} />
                   Lehigh University, Bethlehem, PA
                 </div>
@@ -274,14 +275,14 @@ export default function TeamSection() {
           custom={3}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "1.25rem" }}>
-            <div style={{ flex: 1, maxWidth: "100px", height: 1, background: "rgba(255,255,255,0.06)" }} />
+            <div style={{ flex: 1, maxWidth: "100px", height: 1, background: "var(--border-card)" }} />
             <div style={{ ...LABEL, marginBottom: 0 }}>Collaborators &amp; Press</div>
-            <div style={{ flex: 1, maxWidth: "100px", height: 1, background: "rgba(255,255,255,0.06)" }} />
+            <div style={{ flex: 1, maxWidth: "100px", height: 1, background: "var(--border-card)" }} />
           </div>
           <div style={{
             borderRadius: 14,
             overflow: "hidden",
-            border: "1px solid rgba(255,255,255,0.07)",
+            border: "1px solid var(--border-card)",
             background: "#ffffff",
             maxWidth: 900,
             margin: "0 auto",
