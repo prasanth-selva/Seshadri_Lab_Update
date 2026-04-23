@@ -33,10 +33,10 @@ export default function GallerySection() {
     alt: `Seshadri Lab Gallery Image ${idx + 1}`
   }));
 
-  if (!mounted) return <section id="gallery" style={{ minHeight: "100vh", background: "#080808" }} />;
+  if (!mounted) return <section id="gallery" style={{ minHeight: "100vh", background: "var(--bg-primary)" }} />;
 
   return (
-    <section id="gallery" className="relative w-full bg-[#080808] flex flex-col items-center">
+    <section id="gallery" className="relative w-full bg-[var(--bg-primary)] flex flex-col items-center transition-colors duration-300">
       <div className="relative flex flex-col items-center justify-center pt-32 pb-8 z-10 w-full max-w-[1440px] px-10">
         <motion.div
           className="section-header text-center flex flex-col items-center"
@@ -45,9 +45,9 @@ export default function GallerySection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <div style={{ height: 3, width: 48, background: "#c9a84c", borderRadius: 2, marginBottom: "1.5rem" }} />
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: "#f5f0e8", letterSpacing: "-0.02em" }}>Life at the Lab</h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: "#a69e8e" }}>
+          <div style={{ height: 3, width: 48, background: "var(--accent-gold)", borderRadius: 2, marginBottom: "1.5rem" }} />
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: "var(--text-primary)", letterSpacing: "-0.02em", transition: "color 0.3s ease" }}>Life at the Lab</h2>
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "var(--text-secondary)", transition: "color 0.3s ease" }}>
             A glimpse into our collaborative ecosystem, experiments, and team milestones in smooth parallax.
           </p>
         </motion.div>
@@ -56,9 +56,9 @@ export default function GallerySection() {
       <ZoomParallax images={imagesForParallax} />
 
       {/* INFINITE MARQUEE FOR ALL PHOTOS */}
-      <div className="w-full relative pt-32 pb-24 bg-[#080808] overflow-hidden mt-20 border-t border-[#1a1a1a]">
+      <div className="w-full relative pt-32 pb-24 bg-[var(--bg-primary)] overflow-hidden mt-20 border-t border-[var(--border-strong)] transition-colors duration-300">
         <div className="mb-16 text-center">
-          <h3 style={{ color: "#f5f0e8", fontSize: "1.4rem", fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase" }}>More from the Lab</h3>
+          <h3 style={{ color: "var(--text-primary)", fontSize: "1.4rem", fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase", transition: "color 0.3s ease" }}>More from the Lab</h3>
         </div>
 
         <div className="gallery-marquee-wrapper">
@@ -69,7 +69,7 @@ export default function GallerySection() {
                 <img
                   src={src}
                   alt="Seshadri Lab Community"
-                  className="w-full h-full object-cover rounded-md border border-[#222] grayscale hover:grayscale-0 transition-all duration-500"
+                  className="w-full h-full object-cover rounded-md border border-[var(--border-strong)] grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </div>
             ))}
@@ -95,11 +95,11 @@ export default function GallerySection() {
           }
           .gallery-marquee-wrapper::before {
             left: 0;
-            background: linear-gradient(to right, #080808 0%, transparent 100%);
+            background: linear-gradient(to right, var(--bg-primary) 0%, transparent 100%);
           }
           .gallery-marquee-wrapper::after {
             right: 0;
-            background: linear-gradient(to left, #080808 0%, transparent 100%);
+            background: linear-gradient(to left, var(--bg-primary) 0%, transparent 100%);
           }
           .gallery-marquee-track {
             display: flex;

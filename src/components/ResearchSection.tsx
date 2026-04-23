@@ -66,8 +66,8 @@ export default function ResearchSection() {
     <section
       id="research"
       ref={ref}
-      className="flex flex-col justify-center items-center w-full overflow-hidden"
-      style={{ background: "#0b0b0b", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
+      className="flex flex-col justify-center items-center w-full overflow-hidden transition-colors duration-300"
+      style={{ background: "var(--bg-secondary)", padding: "6rem 0", minHeight: "100vh", position: "relative" }}
     >
 
       <div className="section-container w-full max-w-[1600px] mx-auto px-6 lg:px-12">

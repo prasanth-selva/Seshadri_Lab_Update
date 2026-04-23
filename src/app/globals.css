@@ -23,6 +23,7 @@
   --text-primary: #f5f0e8;
   --text-secondary: #a69e8e;
   --text-muted: #6b6356;
+  --logo-filter: brightness(0) invert(1);
 
   --border-subtle: rgba(201, 168, 76, 0.12);
   --border-card: rgba(255, 255, 255, 0.06);
@@ -56,6 +57,7 @@
   --text-primary: #0A1628;
   --text-secondary: #475569;
   --text-muted: #94a3b8;
+  --logo-filter: brightness(0) invert(0);
 
   --border-subtle: rgba(201, 168, 76, 0.3);
   --border-card: rgba(0, 0, 0, 0.08);

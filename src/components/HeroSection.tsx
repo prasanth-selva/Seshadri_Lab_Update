@@ -22,7 +22,7 @@ export default function HeroSection() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden bg-black"
+      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden bg-[var(--bg-primary)] transition-colors duration-300"
     >
 
       <motion.div 
@@ -39,7 +39,7 @@ export default function HeroSection() {
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-display font-bold text-[#f5f0e8] mb-2 tracking-tight">
+            <h1 className="text-display font-bold text-[var(--text-primary)] mb-2 tracking-tight transition-colors duration-300">
               Seshadri Lab
             </h1>
             <p className="text-[var(--accent-gold)] font-bold tracking-wide mb-6 uppercase" style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.1rem)', letterSpacing: '0.12em' }}>
